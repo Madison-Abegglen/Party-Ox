@@ -1,2 +1,1 @@
-'# capstone-partyOx' 
-"# capstone-partyOx" 
+# This is our capstone project: PartyOx
