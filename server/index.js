@@ -14,7 +14,7 @@ server.use((req, res, next) => {
     return res.status(401).send({ error: 'Please login to continue' })
   }
   next()
-}) 
+})
 
 require('./db/db-config')
 
