@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
+const fetch = require('node-fetch')
 
 const schema = new Schema({
   name: {
@@ -35,5 +36,14 @@ schema.statics.generateHash = function(password) {
 schema.methods.validatePassword = function(password) {
   return bcrypt.compareSync(password, this.password)
 }
+
+function runValidators() {
+  this.setOptions({ runValidators: true })
+}
+schema.pre('update', runValidators)
+schema.pre('updateOne', runValidators)
+schema.pre('updateMany', runValidators)
+schema.pre('findOneAndUpdate', runValidators)
+schema.pre('create', runValidators)
 
 module.exports = mongoose.model('User', schema)

@@ -12,9 +12,9 @@ router.post('/register', async (req, res) => {
     const user = await Users.create(req.body)
     delete user._doc.password
     req.session.uid = user._id
-    res.send(user)
+    return res.send(user)
   } catch(error) {
-    res.status(400).send(error)
+    return res.status(400).send(error)
   }
 })
 
@@ -29,9 +29,9 @@ router.post('/login', async (req, res) => {
     }
     delete user._doc.password
     req.session.uid = user._id
-    res.send(user)
+    return res.send(user)
   } catch(error) {
-    res.status(400).send(error)
+    return res.status(400).send(error)
   }
 })
 
@@ -40,7 +40,7 @@ router.delete('/logout', (req, res) => {
     if (error) {
       return res.send(error)
     }
-    res.send({ message: 'Logout successful' })
+    return res.send({ message: 'Logout successful' })
   })
 })
 
@@ -51,9 +51,9 @@ router.get('/authenticate', async (req, res) => {
       return res.status(401).send({ error: 'Please login to continue' })
     }
     delete user._doc.password
-    res.send(user)
+    return res.send(user)
   } catch(error) {
-    res.status(500).send(error)
+    return res.status(500).send(error)
   }
 })
 
