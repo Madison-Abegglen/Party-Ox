@@ -11,7 +11,12 @@ const schema = new Schema({
     required: true,
     unique: true,
     validate: {
-      validator: value => {},
+      validator: (value, callback) => {
+        fetch(`https://api.trumail.io/v2/lookups/json?email=${encodeURIComponent(value)}`)
+          .then(res => res.json())
+          .then(json => callback(json.validFormat && json.deliverable))
+          .catch(() => callback(false))
+      },
       message: props => `${props.value} is not a valid email`
     }
   },
