@@ -5,7 +5,13 @@ import store from './store'
 import './registerServiceWorker'
 import Vuetify from 'vuetify'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#66fcf1',
+    secondary: '#45a29e',
+    accent: '#163fd1'
+  }
+})
 
 Vue.config.productionTip = false
 
