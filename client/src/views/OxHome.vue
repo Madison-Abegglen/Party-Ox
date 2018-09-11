@@ -1,12 +1,10 @@
 <template>
-  <div class="home">
+  <div class="oxHome">
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-export default {
-  name: "home"
-};
+export default {};
 </script>
