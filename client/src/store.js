@@ -46,35 +46,44 @@ export default new Vuex.Store({
         .then(res => {
           commit('setOx', res.data)
           router.push({ name: 'OxHome' })
-          console.log(res)
+          console.log(res.data)
         })
-
+        .catch(error => console.log(error))
     },
-
-    oxSocket({ commit, dispatch }, connectionInformation) {
-      // establish connection with socket
-      socket = io('//localhost:3000')
-
-      // register socket event listeners
-      socket.on('CONNECTED', data => {
-        console.log('Connected to server socket')
-
-        // connect to room if opening room
-        if (!connectionInformation.newRoom) {
-          socket.emit('join', { roomName: connectionInformation.roomName })
-        } else {
-          socket.emit('create', { roomName: connectionInformation.roomName })
-        }
-      })
-
-      // save current room
-      socket.on('joinedRoom', room => {
-        commit('setRoom', room)
-      })
-
-      socket.on('updateMembers', member => {
-        commit('addMember', member)
-      })
+    signup({ commit, dispatch }, creds) {
+      auth.post('register', creds)
+        .then(res => {
+          commit('setOx', res.data)
+          router.push({ name: 'OxHome' })
+          console.log(res.data)
+        })
+        .catch(error => console.log(error))
     }
+
+    // oxSocket({ commit, dispatch }, connectionInformation) {
+    //   // establish connection with socket
+    //   socket = io('//localhost:3000')
+
+    //   // register socket event listeners
+    //   socket.on('CONNECTED', data => {
+    //     console.log('Connected to server socket')
+
+    //     // connect to room if opening room
+    //     if (!connectionInformation.newRoom) {
+    //       socket.emit('join', { roomName: connectionInformation.roomName })
+    //     } else {
+    //       socket.emit('create', { roomName: connectionInformation.roomName })
+    //     }
+    //   })
+
+    //   // save current room
+    //   socket.on('joinedRoom', room => {
+    //     commit('setRoom', room)
+    //   })
+
+    //   socket.on('updateMembers', member => {
+    //     commit('addMember', member)
+    //   })
+    // }
   }
 })
