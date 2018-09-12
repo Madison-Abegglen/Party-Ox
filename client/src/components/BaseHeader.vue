@@ -68,6 +68,10 @@
 
     &__after {
       justify-content: flex-end;
+
+      .header__logo {
+        right: 1rem;
+      }
     }
   }
 </style>

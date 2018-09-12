@@ -27,6 +27,15 @@ export default new Vuex.Store({
       commit('setSnackbar', text)
     },
 
+    login({ commit, dispatch }, creds) {
+      auth.post('login', creds)
+        .then(res => {
+          commit('setUser', res.data)
+          router.push({})
+        })
+
+    },
+
     oxSocket({ commit, dispatch }, connectionInformation) {
       // establish connection with socket
       socket = io('//localhost:3000')

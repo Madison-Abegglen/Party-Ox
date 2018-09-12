@@ -1,6 +1,6 @@
 <template>
   <div class='login'>
-    <title-header title='PARTY-Ox' logoRight />
+    <title-header title='PARTY-Ox' />
     <main class='login-content'>
       <section class='member'>
         <base-button>Join</base-button>
@@ -63,8 +63,8 @@
     height: calc(100% - 3.975rem);
 
     &__form {
-      width: calc(100% - 2rem);
-      max-width: 45rem;
+      width: 45rem;
+      max-width: calc(100vw - 6rem);
       background-color: var(--lighter-background);
       color: var(--light-color);
       padding: 2rem 3rem;
