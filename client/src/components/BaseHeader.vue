@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar dark color='primary'>
+  <v-toolbar>
     <v-flex class='header'>
       <section class='header__before'>
         <slot name='before'></slot>
