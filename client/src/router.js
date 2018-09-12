@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/OxHome.vue'
+import OxHome from './views/OxHome.vue'
 import Login from './views/Login.vue'
 
 Vue.use(Router)
