@@ -1,15 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Axios from 'axios'
+import router from './router'
+
 // import io from 'socket.io-client'
 let socket = {}
 
 Vue.use(Vuex)
 
+let auth = Axios.create({
+  baseURL: "//localhost:3000/auth/",
+  timeout: 3000,
+  withCredentials: true
+})
+
 export default new Vuex.Store({
   state: {
     snackbar: '',
     currentRoom: {},
-    members: []
+    members: [],
+    ox: {}
   },
   mutations: {
     setSnackbar(state, text) {
@@ -20,7 +30,11 @@ export default new Vuex.Store({
     },
     addMember(state, member) {
       state.members.push(member)
-    }
+    },
+    setOx(state, ox) {
+      state.ox = ox
+    },
+
   },
   actions: {
     newSnackbar({ commit }, text) {
@@ -30,8 +44,9 @@ export default new Vuex.Store({
     login({ commit, dispatch }, creds) {
       auth.post('login', creds)
         .then(res => {
-          commit('setUser', res.data)
-          router.push({})
+          commit('setOx', res.data)
+          router.push({ name: 'OxHome' })
+          console.log(res)
         })
 
     },

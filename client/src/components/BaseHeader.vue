@@ -70,7 +70,9 @@
       justify-content: flex-end;
 
       .header__logo {
-        right: 1rem;
+        right: -2.5rem;
+        left: unset;
+        transform: translateY(-50%);
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-btn class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : undefined'
+  <v-btn @click='$emit("click", $event)' class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : undefined'
     v-bind='$props'>
     <slot></slot>
   </v-btn>
@@ -30,6 +30,10 @@
         default: false
       },
       depressed: {
+        type: Boolean,
+        default: false
+      },
+      outline: {
         type: Boolean,
         default: false
       }

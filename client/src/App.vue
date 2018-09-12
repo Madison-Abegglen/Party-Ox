@@ -1,7 +1,7 @@
 <template>
   <v-app dark id="app">
     <router-view />
-    <v-snackbar bottom right :timeout='3000'>{{ $store.state.snackbar }}</v-snackbar>
+    <v-snackbar dark bottom right :timeout='3000' absolute>This is a snackbar</v-snackbar>
   </v-app>
 </template>
 
@@ -17,7 +17,7 @@
   }
 
   #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    // font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

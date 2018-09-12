@@ -1,18 +1,38 @@
 <template>
   <div class='login'>
     <title-header title='PARTY-Ox' />
+
     <main class='login-content'>
       <section class='member'>
-        <base-button>Join</base-button>
-        <p class='subheading'>Join an existing party</p>
+        <div>
+          <base-button outline>Join</base-button>
+          <p class='subheading'>Join an existing party</p>
+        </div>
+
+        <div>
+          <v-text-field box type="text" name="code" v-model="input.code" label="Code" autocomplete="off" />
+        </div>
+
       </section>
+
       <section class='ox'>
-        <v-form class="login-content__form elevation-2">
-          <v-text-field box type="text" name="email" v-model="input.email" label="Email" autocomplete="off" />
-          <v-text-field box type="password" name="password" v-model="input.password" label="Password" autocomplete="off" />
-          <base-button primary raised @click="login()">Login</base-button>
-          <base-button flat>or sign up</base-button>
-        </v-form>
+        <transition name='fade' mode='out-in'>
+          <div v-if='!oxFormToggle'>
+            <base-button outline @click="oxFormToggle = true">Host</base-button>
+            <p class='subheading'>Host a new party</p>
+          </div>
+
+          <div class="login-content__form elevation-2" v-else>
+            <v-text-field v-if="signUpToggle" box type="text" name="name" v-model="input.name" label="Name"
+              autocomplete="off" />
+            <v-text-field box type="text" name="email" v-model="input.email" label="Email" autocomplete="off" />
+            <v-text-field box type="password" name="password" v-model="input.password" label="Password" autocomplete="off" />
+
+            <base-button primary raised @click="login()">Login</base-button>
+            <base-button @click="signUpToggle = !signUpToggle" flat>or sign up</base-button>
+          </div>
+
+        </transition>
       </section>
     </main>
   </div>
@@ -22,6 +42,9 @@
   import TitleHeader from '@/components/TitleHeader'
 
   export default {
+    mounted() {
+      // this.$store.dispatch('newSnackbar', 'Wow I work maybe?')
+    },
     components: {
       TitleHeader
     },
@@ -30,21 +53,14 @@
         input: {
           email: "",
           password: ""
-        }
+        },
+        signUpToggle: false,
+        oxFormToggle: false
       }
     },
     methods: {
       login() {
-        // if (this.input.email != "" && this.input.password != "") {
-        //   if (this.input.email == this.$parent.email && this.input.password == this.$parent.password) {
-        //     this.$router.replace({ name: "OxHome" });
-        //   } else {
-        //     this.$store.dispatch("newSnackbar", "Invalid password")
-        //   }
-        // } else {
-        //   this.$store.dispatch("newSnackbar", "Incorrect login information")
-        // }
-        // **Should dispatch to store**
+        this.$store.dispatch("login", this.creds)
       }
     }
   }
@@ -68,6 +84,24 @@
       background-color: var(--lighter-background);
       color: var(--light-color);
       padding: 2rem 3rem;
+      border-radius: 0.1rem;
     }
+  }
+
+  .member {
+    margin-bottom: 1rem;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .5s;
+  }
+
+  .fade-enter,
+  .fade-leave-to
+
+  /* .fade-leave-active below version 2.1.8 */
+    {
+    opacity: 0;
   }
 </style>
