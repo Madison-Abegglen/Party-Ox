@@ -11,15 +11,15 @@ const schema = new Schema({
     type: String,
     required: true,
     unique: true,
-    validate: {
-      validator: (value, callback) => {
-        fetch(`https://api.trumail.io/v2/lookups/json?email=${encodeURIComponent(value)}`)
-          .then(res => res.json())
-          .then(json => callback(json.validFormat && json.deliverable))
-          .catch(() => callback(false))
-      },
-      message: props => `${props.value} is not a valid email`
-    }
+    // validate: {
+    //   validator: (value, callback) => {
+    //     fetch(`https://api.trumail.io/v2/lookups/json?email=${encodeURIComponent(value)}`)
+    //       .then(res => res.json())
+    //       .then(json => callback(json.validFormat && json.deliverable))
+    //       .catch(() => callback(false))
+    //   },
+    //   message: props => `${props.value} is not a valid email`
+    // }
   },
   password: {
     type: String,
@@ -30,10 +30,10 @@ const schema = new Schema({
 const bcrypt = require('bcrypt')
 const SALT = 10
 
-schema.statics.generateHash = function(password) {
+schema.statics.generateHash = function (password) {
   return bcrypt.hashSync(password, SALT)
 }
-schema.methods.validatePassword = function(password) {
+schema.methods.validatePassword = function (password) {
   return bcrypt.compareSync(password, this.password)
 }
 

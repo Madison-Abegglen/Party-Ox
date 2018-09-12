@@ -4,11 +4,18 @@
       <section class='header__before'>
         <slot name='before'></slot>
       </section>
-      <img class='header__logo' src='../assets/ox-circle.svg' v-if='circle' />
-      <img class='header__logo' src='../assets/ox-party.svg' v-else-if='party' />
-      <img class='header__logo' src='../assets/ox.svg' v-else />
+      <div v-if='!logoRight'>
+        <img class='header__logo' src='../assets/ox-circle.svg' v-if='circle' />
+        <img class='header__logo' src='../assets/ox-party.svg' v-else-if='party' />
+        <img class='header__logo' src='../assets/ox.svg' v-else />
+      </div>
       <section class='header__after'>
         <slot name='after'></slot>
+        <div v-if='logoRight'>
+          <img class='header__logo' src='../assets/ox-circle.svg' v-if='circle' />
+          <img class='header__logo' src='../assets/ox-party.svg' v-else-if='party' />
+          <img class='header__logo' src='../assets/ox.svg' v-else />
+        </div>
       </section>
     </v-flex>
   </v-toolbar>
@@ -25,6 +32,10 @@
       party: {
         type: Boolean,
         default: false
+      },
+      logoRight: {
+        type: Boolean,
+        default: false
       }
     }
   }
@@ -35,6 +46,7 @@
     display: flex;
     justify-content: space-between;
     position: relative;
+
     &__logo {
       height: 6rem;
       position: absolute;
@@ -42,14 +54,18 @@
       top: 50%;
       transform: translate(-50%, -50%);
     }
-    &__before, &__after {
+
+    &__before,
+    &__after {
       display: flex;
       align-items: center;
       width: calc(50% - 2.75rem);
     }
+
     &__before {
       justify-content: flex-start;
     }
+
     &__after {
       justify-content: flex-end;
     }

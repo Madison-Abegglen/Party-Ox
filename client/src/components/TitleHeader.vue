@@ -1,6 +1,6 @@
 <template>
-  <base-header>
-    <h6 class='title' slot='before'>{{ title }}</h6>
+  <base-header logoRight>
+    <h6 class='caption' slot='before'>{{ title }}</h6>
   </base-header>
 </template>
 

@@ -1,13 +1,21 @@
 <template>
-  <main>
-    <title-header title='PARTY-Ox' />
-    <div id="login">
-      <h1>Login</h1>
-      <input type="text" name="username" v-model="input.username" placeholder="Username" autocomplete="off" />
-      <input type="password" name="password" v-model="input.password" placeholder="Password" autocomplete="off" />
-      <button type="button" v-on:click="login()">Login</button>
-    </div>
-  </main>
+  <div class='login'>
+    <title-header title='PARTY-Ox' logoRight />
+    <main class='login-content'>
+      <section class='member'>
+        <base-button>Join</base-button>
+        <p class='subheading'>Join an existing party</p>
+      </section>
+      <section class='ox'>
+        <v-form class="login-content__form elevation-2">
+          <v-text-field box type="text" name="email" v-model="input.email" label="Email" autocomplete="off" />
+          <v-text-field box type="password" name="password" v-model="input.password" label="Password" autocomplete="off" />
+          <base-button primary raised @click="login()">Login</base-button>
+          <base-button flat>or sign up</base-button>
+        </v-form>
+      </section>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -17,40 +25,49 @@
     components: {
       TitleHeader
     },
-    name: 'Login',
     data() {
       return {
         input: {
-          username: "",
+          email: "",
           password: ""
         }
       }
     },
     methods: {
       login() {
-        if (this.input.username != "" && this.input.password != "") {
-          if (this.input.username == this.$parent.mockAccount.username && this.input.password == this.$parent.mockAccount.password) {
-            this.$emit("authenticated", true);
-            this.$router.replace({ name: "secure" });
-          } else {
-            console.log("The username or password is incorrect");
-          }
-        } else {
-          console.log("A username and password must be present");
-        }
+        // if (this.input.email != "" && this.input.password != "") {
+        //   if (this.input.email == this.$parent.email && this.input.password == this.$parent.password) {
+        //     this.$router.replace({ name: "OxHome" });
+        //   } else {
+        //     this.$store.dispatch("newSnackbar", "Invalid password")
+        //   }
+        // } else {
+        //   this.$store.dispatch("newSnackbar", "Incorrect login information")
+        // }
+        // **Should dispatch to store**
       }
     }
   }
 </script>
 
-<style scoped>
-  #login {
-    width: 250px;
-    border: 1px solid #163fd1;
-    background-color: #1f2833;
-    color: #c5c6c7;
-    margin: auto;
-    margin-top: 200px;
-    padding: 20px;
+<style scoped lang='scss'>
+  .login {
+    height: 100%;
+  }
+
+  .login-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 3.975rem);
+
+    &__form {
+      width: calc(100% - 2rem);
+      max-width: 45rem;
+      background-color: var(--lighter-background);
+      color: var(--light-color);
+      padding: 2rem 3rem;
+    }
   }
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <v-btn :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : undefined' v-bind='$props'>
+  <v-btn class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : undefined'
+    v-bind='$props'>
     <slot></slot>
   </v-btn>
 </template>
@@ -36,6 +37,8 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang='scss'>
+  .button {
+    border-radius: 1.5rem;
+  }
 </style>
