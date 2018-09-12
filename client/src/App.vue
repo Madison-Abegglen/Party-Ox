@@ -1,6 +1,7 @@
 <template>
   <v-app dark id="app">
     <router-view/>
+    <v-snackbar bottom right>{{ $store.state.snackbar }}</v-snackbar>
   </v-app>
 </template>
 
