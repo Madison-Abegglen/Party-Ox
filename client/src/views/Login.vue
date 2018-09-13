@@ -135,16 +135,4 @@ export default {
 .max-height-6-leave-to {
   max-height: 0;
 }
-
-.max-height-20-enter-active,
-.max-height-20-leave-active {
-  transition: max-height 0.25s;
-  max-height: 20rem;
-  overflow: hidden;
-}
-
-.max-height-20-enter,
-.max-height-20-leave-to {
-  max-height: 0;
-}
 </style>

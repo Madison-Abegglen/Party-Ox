@@ -23,6 +23,7 @@ export default {
   html {
     margin: 0;
     min-height: 100vh;
+    width: 100vw;
   }
 
   body::-webkit-scrollbar {
