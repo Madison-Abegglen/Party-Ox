@@ -62,9 +62,7 @@ export default new Vuex.Store({
           router.push({ name: 'OxHome' })
           console.log(res.data)
         })
-        .catch(error => {
-          dispatch('newSnackbar', error)
-        })
+        .catch(error => dispatch('newSnackbar', error))
     },
     signup({ commit, dispatch }, creds) {
       auth.post('register', creds)
@@ -73,7 +71,7 @@ export default new Vuex.Store({
           router.push({ name: 'OxHome' })
           console.log(res.data)
         })
-        .catch(error => console.log(error))
+        .catch(error => dispatch('newSnackbar', error))
     }
 
     // oxSocket({ commit, dispatch }, connectionInformation) {
