@@ -1,9 +1,22 @@
 <template>
   <v-app dark id="app">
     <router-view />
-    <v-snackbar dark bottom right :timeout='3000' absolute>This is a snackbar</v-snackbar>
+    <v-snackbar dark bottom right :value='$store.state.snackbar.open' :timeout='20000' absolute>
+      {{ $store.state.snackbar.text }}
+      <square-button flat small @click='$store.dispatch("closeSnackbar")'>Close</square-button>
+    </v-snackbar>
   </v-app>
 </template>
+
+<script>
+import SquareButton from '@/components/SquareButton.vue'
+
+export default {
+  components: {
+    SquareButton
+  }
+}
+</script>
 
 <style lang="scss">
   body,
