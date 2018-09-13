@@ -102,7 +102,7 @@ export default {
   width: 45rem;
   max-width: calc(100vw - 6rem);
   border-radius: 0.1rem;
-  padding: 2rem 3rem;
+  padding: 3rem 3rem 1.5rem;
   background-color: var(--lighter-background);
 }
 

@@ -1,6 +1,6 @@
 <template>
-  <v-btn v-on='$listeners' class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : undefined'
-    v-bind='$props'>
+  <v-btn class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : undefined'
+    v-bind='$props' v-on='$listeners'>
     <slot></slot>
   </v-btn>
 </template>
