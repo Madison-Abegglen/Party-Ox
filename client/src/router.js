@@ -3,14 +3,19 @@ import Router from 'vue-router'
 import OxHome from './views/OxHome.vue'
 import Login from './views/Login.vue'
 
+import store from './store'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'OxHome',
-      component: OxHome
+      component: OxHome,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
@@ -19,3 +24,18 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some(route => route.meta.requiresAuth) &&
+    !store.getters.loggedIn
+  ) {
+    if (to.name !== 'login') {
+      store.state.reroute = { name: to.name, params: to.params }
+    }
+    return next({ name: 'login' })
+  }
+  next()
+})
+
+export default router 

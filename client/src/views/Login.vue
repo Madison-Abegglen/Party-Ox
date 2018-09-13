@@ -5,7 +5,7 @@
     <main class='login-content'>
       <section class='member'>
         <transition name='fade' mode='out-in'>
-            <div v-if='!memberFormToggle'>
+          <div v-if='!memberFormToggle'>
             <base-button outline @click='memberFormToggle = true; oxFormToggle = false'>Join</base-button>
             <p class='subheading'>Join an existing party</p>
           </div>
@@ -30,11 +30,13 @@
               <v-text-field v-if="signUpToggle" box type="text" name="name" v-model="input.name" label="Name"
               autocomplete="off" />
             </transition>
-            <v-text-field box type="text" name="email" v-model="input.email" label="Email" autocomplete="off" />
-            <v-text-field box type="password" name="password" v-model="input.password" label="Password" autocomplete="off" />
-            <base-button primary raised @click="login()" v-if="!signUpToggle">Login</base-button>
-            <base-button primary raised @click="signup()" v-else>Signup</base-button>
-            <base-button @click="signUpToggle = !signUpToggle" flat>or {{ signUpToggle ? "login":"signup"}}</base-button>
+            <form @submit.prevent="signUpToggle ? signup() : login()">
+              <v-text-field box type="text" name="email" v-model="input.email" label="Email" autocomplete="off" />
+              <v-text-field box type="password" name="password" v-model="input.password" label="Password" autocomplete="off" />
+              <base-button type="submit" primary raised v-if="!signUpToggle">Login</base-button>
+              <base-button type="submit" primary raised v-else>Signup</base-button>
+              <base-button @click="signUpToggle = !signUpToggle" flat>or {{ signUpToggle ? "login":"signup"}}</base-button>
+            </form>
           </div>
 
         </transition>

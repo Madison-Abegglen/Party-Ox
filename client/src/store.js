@@ -22,7 +22,12 @@ export default new Vuex.Store({
     },
     currentRoom: {},
     members: [],
-    ox: {}
+    parties: [],
+    ox: {},
+    reroute: undefined
+  },
+  getters: {
+    loggedIn: state => !!state.ox.email
   },
   mutations: {
     setSnackbar(state, snack) {
@@ -55,20 +60,22 @@ export default new Vuex.Store({
       commit('setSnackbar', { open: true, text: data })
     },
 
-    login({ commit, dispatch }, creds) {
+    login({ commit, dispatch, state }, creds) {
       auth.post('login', creds)
         .then(res => {
           commit('setOx', res.data)
-          router.push({ name: 'OxHome' })
+          console.log(state.reroute)
+          router.push(state.reroute || { name: 'OxHome' })
           console.log(res.data)
         })
         .catch(error => dispatch('newSnackbar', error))
     },
-    signup({ commit, dispatch }, creds) {
+    signup({ commit, dispatch, state }, creds) {
       auth.post('register', creds)
         .then(res => {
           commit('setOx', res.data)
-          router.push({ name: 'OxHome' })
+          console.log(state.reroute)
+          router.push(state.reroute || { name: 'OxHome' })
           console.log(res.data)
         })
         .catch(error => dispatch('newSnackbar', error))

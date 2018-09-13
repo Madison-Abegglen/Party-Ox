@@ -25,6 +25,9 @@ router.post('/auth/register', (req, res) => {
     })
     .catch(error => {
       console.log('[REGISTER ERROR]', error)
+      if (error.code === 11000) { // Email already exists
+        return res.status(401).send({ error: 'Email already exists' })
+      }
       res.status(500).send({ error: 'Unable to register' })
     })
 })
