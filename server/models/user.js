@@ -11,6 +11,7 @@ const schema = new Schema({
     type: String,
     required: true,
     unique: true,
+    dropDups: true
     // validate: {
     //   validator: (value, callback) => {
     //     fetch(`https://api.trumail.io/v2/lookups/json?email=${encodeURIComponent(value)}`)
