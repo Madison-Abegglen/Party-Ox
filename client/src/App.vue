@@ -1,7 +1,7 @@
 <template>
   <v-app dark id="app">
     <router-view />
-    <v-snackbar dark bottom right :value='$store.state.snackbar.open' :timeout='20000' absolute>
+    <v-snackbar dark bottom right :value='$store.state.snackbar.open' :timeout='3000' absolute>
       {{ $store.state.snackbar.text }}
       <square-button flat small @click='$store.dispatch("closeSnackbar")'>Close</square-button>
     </v-snackbar>
