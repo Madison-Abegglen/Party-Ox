@@ -24,9 +24,13 @@ const schema = new Schema({
   },
   suggestions: [Song],
   queue: [Song],
-  pin: {
+  code: {
     type: String,
     default: '0123'
+  },
+  memberLimit: {
+    type: Number,
+    default: Infinity
   },
   userId: {
     type: Schema.Types.ObjectId,

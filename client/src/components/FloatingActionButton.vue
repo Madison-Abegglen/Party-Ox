@@ -35,6 +35,6 @@ export default {
 </style>
 <style lang='scss'>
 .fab * {
-  color: #66fcf1;
+  color: #66fcf1 !important;
 }
 </style>

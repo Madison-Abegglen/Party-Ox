@@ -10,17 +10,20 @@
       <v-divider class="v-divider"></v-divider>
 
       <square-button class='headline menu-option' @click="dialog = true">DELETE ACCOUNT</square-button>
-      
+
       <floating-action-button @click="newPartyDialog = true">Create new party</floating-action-button>
     </main>
 
 
-    <v-dialog v-model="newPartyDialog"> 
+    <v-dialog v-model="newPartyDialog">
       <v-card>
-        <v-card-title>Create a new party</v-card-title>
+        <v-card-title class="card-title">Create a new party</v-card-title>
         <v-divider></v-divider>
-        <v-text-field box type="text" name="partyName" label="Party Name" autocomplete="off" required/>
-        <v-text-field box type="number" name="userLimit" label="User Limit" autocomplete="off" required/>
+        <v-text-field box type="text" name="partyName" v-model="partyDialog.name" label="Party Name" autocomplete="off" required/>
+        <v-text-field box type="number" name="partyLimit" v-model="partyDialog.limit" label="Party Limit" autocomplete="off" required/>        
+        <v-divider></v-divider>
+        <v-card-text>For members to join your party, give them the corresponding party code to enter on the home screen. Create party and you will recieve your code.</v-card-text>
+        <square-button class="headline partyBtn" @click="createNewParty">Create party</square-button>
       </v-card>
     </v-dialog>
 
@@ -49,7 +52,11 @@ export default {
   data() {
     return {
       dialog: false,
-      newPartyDialog: false
+      newPartyDialog: false,
+      partyDialog: {
+        name: "",
+        limit: ""
+      }
     };
   },
 
@@ -62,6 +69,9 @@ export default {
     },
     createPartyDialog() {
       return this.$store.dispatch("createParty");
+    },
+    createNewParty() {
+      this.$store.dispatch("newParty", this.partyDialog);
     }
   },
 
@@ -85,6 +95,12 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.card-title {
+  font-size: 1.5rem;
+}
+.partyBtn {
+  height: 4rem;
+}
 .ox-home {
   &__content {
     padding: 2rem;

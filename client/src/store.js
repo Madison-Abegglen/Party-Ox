@@ -3,8 +3,8 @@ import Vuex from 'vuex'
 import Axios from 'axios'
 import router from './router'
 
-// import io from 'socket.io-client'
-// let socket = {}
+import io from 'socket.io-client'
+let socket
 
 Vue.use(Vuex)
 
@@ -21,6 +21,7 @@ let api = Axios.create({
 })
 
 export default new Vuex.Store({
+  // IDAHO
   state: {
     snackbar: {
       open: false,
@@ -33,12 +34,12 @@ export default new Vuex.Store({
     reroute: undefined
   },
 
-
+  // IF YOURE READY COME AND GET IT
   getters: {
     loggedIn: state => !!state.ox.email
   },
 
-
+  // SCIENCE EXPERIMENTS HERE
   mutations: {
     setSnackbar(state, snack) {
       state.snackbar = snack
@@ -46,16 +47,21 @@ export default new Vuex.Store({
     setRoom(state, room) {
       state.currentRoom = room
     },
-    addMember(state, member) {
+    setMembers(state, member) {
       state.members.push(member)
     },
     setOx(state, ox) {
       state.ox = ox
+    },
+    setParties(state, parties) {
+      state.parties = parties
     }
   },
 
-
+  // TAKE ACTION NOW
   actions: {
+
+    // SNACK BAR STUFF (YUM)
     closeSnackbar({ commit }) {
       commit('setSnackbar', { text: '', open: false })
     },
@@ -71,51 +77,49 @@ export default new Vuex.Store({
       commit('setSnackbar', { open: true, text: data })
     },
 
+    // AUTHORIZATION FOUND BELOW
     login({ commit, dispatch, state }, creds) {
       auth.post('login', creds)
         .then(res => {
           commit('setOx', res.data)
-          console.log(state.reroute)
+          dispatch('initSocket')
+
           router.push(state.reroute || { name: 'OxHome' })
-          console.log(res.data)
           state.reroute = undefined
         })
         .catch(error => dispatch('newSnackbar', error))
     },
-
     logout({ commit, dispatch }, oxId) {
       auth.delete('logout')
         .then(res => {
           commit('setOx', {})
-          router.push({ name: 'login' })
-
-          // go to login page 
+          router.push({ name: 'login' }) // go to login page
         })
         .catch(error => dispatch('newSnackbar', error))
     },
-
     signup({ commit, dispatch, state }, creds) {
       auth.post('register', creds)
         .then(res => {
           commit('setOx', res.data)
-          console.log(state.reroute)
+
           router.push(state.reroute || { name: 'OxHome' })
-          console.log(res.data)
           state.reroute = undefined
         })
         .catch(error => dispatch('newSnackbar', error))
     },
-
-    authenticate({ commit, state }) {
+    authenticate({ commit, dispatch, state }) {
       auth.get('authenticate')
         .then(res => {
           commit('setOx', res.data)
+
           router.push(state.reroute || { name: 'OxHome' })
           state.reroute = undefined
+          dispatch('initSocket')
         })
         .catch(() => { }) // swallows your errors
     },
 
+    // IN CASE YOU HATE OUR APP
     deleteAccount({ commit, dispatch }, oxId) {
       api.delete('users/')
         .then(() => {
@@ -123,33 +127,40 @@ export default new Vuex.Store({
           router.push({ name: 'login' })
         })
         .catch(error => dispatch('newSnackbar', error))
+    },
+
+    // SOCKS???
+    initSocket({ commit, dispatch, state, getters }) {
+      if (!getters.loggedIn) {
+        return;
+      }
+      socket = io('//localhost:3000')
+
+      socket.on('connected', () => {
+        console.log('connected to socket')
+        socket.emit('setUser', state.ox)
+        console.log('sent ox to socket')
+      })
+
+      socket.on('parties', parties => {
+        commit('setParties', parties)
+        console.log('got parties from socket')
+      })
+
+      socket.on('party', party => {
+        commit('setParties', [...state.parties, party])
+        console.log('got new party from socket')
+      })
+
+      socket.on('errorOccurred', error => {
+        dispatch('newSnackbar', error)
+        console.log('[SOCKET ERROR]', error)
+      })
+    },
+
+    newParty(context, partyData) {
+      console.log(partyData)
+      socket.emit('newParty', partyData)
     }
-
-    // oxSocket({ commit, dispatch }, connectionInformation) {
-    //   // establish connection with socket
-    //   socket = io('//localhost:3000')
-
-    //   // register socket event listeners
-    //   socket.on('CONNECTED', data => {
-    //     console.log('Connected to server socket')
-
-    //     // connect to room if opening room
-    //     if (!connectionInformation.newRoom) {
-    //       socket.emit('join', { roomName: connectionInformation.roomName })
-    //     } else {
-    //       socket.emit('create', { roomName: connectionInformation.roomName })
-    //     }
-    //   })
-
-    //   // save current room
-    //   socket.on('joinedRoom', room => {
-    //     commit('setRoom', room)
-    //   })
-
-    //   socket.on('updateMembers', member => {
-    //     commit('addMember', member)
-    //   })
-    // }
-
   }
 })
