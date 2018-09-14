@@ -10,12 +10,23 @@
       <v-divider class="v-divider"></v-divider>
 
       <square-button class='headline menu-option' @click="dialog = true">DELETE ACCOUNT</square-button>
-      <floating-action-button>Test</floating-action-button>
+      
+      <floating-action-button @click="newPartyDialog = true">Create new party</floating-action-button>
     </main>
+
+
+    <v-dialog v-model="newPartyDialog"> 
+      <v-card>
+        <v-card-title>Create a new party</v-card-title>
+        <v-divider></v-divider>
+        <v-text-field box type="text" name="partyName" label="Party Name" autocomplete="off" required/>
+        <v-text-field box type="number" name="userLimit" label="User Limit" autocomplete="off" required/>
+      </v-card>
+    </v-dialog>
 
     <v-dialog v-model="dialog">
       <v-card>
-        <v-card-title class='title'>Warning</v-card-title>
+        <v-card-title>Warning</v-card-title>
         <v-card-text>Are you sure you want to delete your account?</v-card-text>
 
         <v-divider></v-divider>
@@ -37,7 +48,8 @@ import FloatingActionButton from "@/components/FloatingActionButton.vue";
 export default {
   data() {
     return {
-      dialog: false
+      dialog: false,
+      newPartyDialog: false
     };
   },
 
@@ -47,6 +59,9 @@ export default {
     },
     deleteAccount() {
       return this.$store.dispatch("deleteAccount", this.oxId);
+    },
+    createPartyDialog() {
+      return this.$store.dispatch("createParty");
     }
   },
 
@@ -108,5 +123,6 @@ export default {
 <style lang='scss'>
 .menu-option * {
   justify-content: unset !important;
+  font-weight: 400 !important;
 }
 </style>

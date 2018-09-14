@@ -6,47 +6,51 @@
 </template>
 
 <script>
-  export default {
-    name: 'base-button',
-    props: {
-      primary: {
-        type: Boolean,
-        default: false
-      },
-      secondary: {
-        type: Boolean,
-        default: false
-      },
-      accent: {
-        type: Boolean,
-        default: false
-      },
-      flat: {
-        type: Boolean,
-        default: false
-      },
-      raised: {
-        type: Boolean,
-        default: false
-      },
-      depressed: {
-        type: Boolean,
-        default: false
-      },
-      outline: {
-        type: Boolean,
-        default: false
-      },
-      small: {
-        type: Boolean,
-        default: false
-      }
+export default {
+  name: "base-button",
+  props: {
+    primary: {
+      type: Boolean,
+      default: false
+    },
+    secondary: {
+      type: Boolean,
+      default: false
+    },
+    accent: {
+      type: Boolean,
+      default: false
+    },
+    flat: {
+      type: Boolean,
+      default: false
+    },
+    raised: {
+      type: Boolean,
+      default: false
+    },
+    depressed: {
+      type: Boolean,
+      default: false
+    },
+    outline: {
+      type: Boolean,
+      default: false
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    absolute: {
+      type: Boolean,
+      default: false
     }
   }
+};
 </script>
 
 <style scoped lang='scss'>
-  .button {
-    border-radius: 1.5rem;
-  }
+.button {
+  border-radius: 1.5rem;
+}
 </style>

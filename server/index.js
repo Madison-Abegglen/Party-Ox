@@ -1,4 +1,5 @@
-const server = require('express')()
+const express = require('express')
+const server = express()
 
 const cors = require('cors')
 const whitelist = ['http://localhost:8080', 'http://192.168.0.34:8080']
@@ -41,40 +42,44 @@ server.use('/api/users/', routes.users)
 // server.use('/api/members/', routes.members)
 
 // create server for socket and connect socket to it
-// const socketServer = require('http').createServer(server)
-// const io = require('socket.io')(socketServer)
+const app = require('http').createServer(server)
+const io = require('socket.io')(app, {
+  origins: '*:*'
+})
 
-// // socket stuff
-// const connectedUsers = {}
-// const rooms = {}
+// socket stuff
+const Parties = require('./models/party')
 
-// io.on('connection', socket => {
-//   // new connection
-//   console.log('User connected')
+io.on('connection', socket => {
+  // new connection
+  console.log('User connected')
+  let user = undefined
+  const errorHandler = error => {
+    console.log(error)
+    socket.emit('errorOccurred', error)
+  }
 
-//   // notify connector of successful
-//   socket.emit('CONNECTED', {
-//     socket: socket.id,
-//     message: 'Succesfully connected'
-//   })
+  // notify connector of successful
+  socket.emit('connected', {
+    socket: socket.id,
+    message: 'Succesfully connected'
+  })
 
-//   // join a room
-//   socket.on('join', data => {
-//     if (data.roomName) {
-//       socket.emit('joinedRoom', {
-//         roomName: data.roomName
-//       })
+  socket.on('setUser', userData => {
+    user = userData;
+    // send back list of parties for user
+    Parties.find({ userId: user._id })
+      .then(parties => socket.emit('parties', parties))
+      .catch(errorHandler)
+  })
 
-//       // check if user is member
-//       const newUser = { wow: 'this needs some stuff' }
-//       rooms[data.roomName].members.push(newUser)
-//       io.to(data.roomName).emit('newMember', newUser)
-//       // else if user is ox
-//       rooms[data.roomName].ox = { wow: 'this needs some stuff' }
-//     }
-
-//   })
-// })
+  socket.on('newParty', party => {
+    // create party on model
+    Parties.create({ name: party.name, userId: user._id })
+      .then(party => socket.emit('party', party))
+      .catch(errorHandler)
+  })
+})
 
 
 server.use('/api/*', (error, req, res) => res.status(400).send(error))

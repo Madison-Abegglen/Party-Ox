@@ -1,16 +1,40 @@
 <template>
-  <base-button>
+  <base-button class='fab elevation-4' v-on='$listeners' v-bind='$props' absolute>
     <slot></slot>
-    <i class='material-icons'>add</i>
+    <v-icon>add</v-icon>
   </base-button>
 </template>
 
 <script>
-  export default {
-    name: 'floating-action-button'
-  }
+export default {
+  name: "floating-action-button"
+};
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+.fab {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  background-color: transparent;
+  font-family: Roboto;
+  border-radius: 3rem;
+  border: solid 1px #66fcf1;
+  height: 3.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 300;
 
+  .material-icons {
+    margin-left: 0.5rem;
+  }
+}
+</style>
+<style lang='scss'>
+.fab * {
+  color: #66fcf1;
+}
 </style>

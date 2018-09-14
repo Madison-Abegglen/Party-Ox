@@ -15,9 +15,9 @@ let auth = Axios.create({
 })
 
 let api = Axios.create({
-  baseURL: "//localhost:3000/",
+  baseURL: "//localhost:3000/api/",
   timeout: 3000,
-
+  withCredentials: true
 })
 
 export default new Vuex.Store({
@@ -117,7 +117,7 @@ export default new Vuex.Store({
     },
 
     deleteAccount({ commit, dispatch }, oxId) {
-      api.delete('users/logout')
+      api.delete('users/')
         .then(() => {
           commit('setOx', {})
           router.push({ name: 'login' })
