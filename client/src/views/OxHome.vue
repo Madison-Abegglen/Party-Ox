@@ -10,7 +10,7 @@
       <v-divider class="v-divider"></v-divider>
 
       <square-button class='headline menu-option' @click="dialog = true">DELETE ACCOUNT</square-button>
-      <floating-action-button></floating-action-button>
+      <floating-action-button>Test</floating-action-button>
     </main>
 
     <v-dialog v-model="dialog">
