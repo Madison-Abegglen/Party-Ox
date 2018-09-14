@@ -29,13 +29,13 @@
             <transition name='max-height-6'>
               <v-text-field v-if="signUpToggle" box type="text" name="name" v-model="input.name" label="Name"
               autocomplete="off" />
-            </transition>
+            </transition> 
             <form @submit.prevent="signUpToggle ? signup() : login()">
               <v-text-field box type="text" name="email" v-model="input.email" label="Email" autocomplete="off" />
               <v-text-field box type="password" name="password" v-model="input.password" label="Password" autocomplete="off" />
               <base-button type="submit" primary raised v-if="!signUpToggle">Login</base-button>
               <base-button type="submit" primary raised v-else>Signup</base-button>
-              <base-button @click="signUpToggle = !signUpToggle" flat>or {{ signUpToggle ? "login":"signup"}}</base-button>
+              <base-button @click="signUpToggle = !signUpToggle" flat>or {{signUpToggle ? "login":"signup"}}</base-button>
             </form>
           </div>
 
@@ -50,7 +50,7 @@ import TitleHeader from "@/components/TitleHeader";
 
 export default {
   mounted() {
-    // this.$store.dispatch('newSnackbar', 'Wow I work maybe?')
+    this.$store.dispatch("authenticate");
   },
   components: {
     TitleHeader

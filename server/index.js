@@ -36,7 +36,7 @@ const routes = {
   members: require('./routes/member')
 }
 
-// server.use('/api/users/', routes.users)
+server.use('/api/users/', routes.users)
 // server.use('/api/parties/', routes.parties)
 // server.use('/api/members/', routes.members)
 

@@ -14,6 +14,12 @@ let auth = Axios.create({
   withCredentials: true
 })
 
+let api = Axios.create({
+  baseURL: "//localhost:3000/",
+  timeout: 3000,
+
+})
+
 export default new Vuex.Store({
   state: {
     snackbar: {
@@ -26,9 +32,13 @@ export default new Vuex.Store({
     ox: {},
     reroute: undefined
   },
+
+
   getters: {
     loggedIn: state => !!state.ox.email
   },
+
+
   mutations: {
     setSnackbar(state, snack) {
       state.snackbar = snack
@@ -41,9 +51,10 @@ export default new Vuex.Store({
     },
     setOx(state, ox) {
       state.ox = ox
-    },
-
+    }
   },
+
+
   actions: {
     closeSnackbar({ commit }) {
       commit('setSnackbar', { text: '', open: false })
@@ -67,9 +78,22 @@ export default new Vuex.Store({
           console.log(state.reroute)
           router.push(state.reroute || { name: 'OxHome' })
           console.log(res.data)
+          state.reroute = undefined
         })
         .catch(error => dispatch('newSnackbar', error))
     },
+
+    logout({ commit, dispatch }, oxId) {
+      auth.delete('logout')
+        .then(res => {
+          commit('setOx', {})
+          router.push({ name: 'login' })
+
+          // go to login page 
+        })
+        .catch(error => dispatch('newSnackbar', error))
+    },
+
     signup({ commit, dispatch, state }, creds) {
       auth.post('register', creds)
         .then(res => {
@@ -77,6 +101,26 @@ export default new Vuex.Store({
           console.log(state.reroute)
           router.push(state.reroute || { name: 'OxHome' })
           console.log(res.data)
+          state.reroute = undefined
+        })
+        .catch(error => dispatch('newSnackbar', error))
+    },
+
+    authenticate({ commit, state }) {
+      auth.get('authenticate')
+        .then(res => {
+          commit('setOx', res.data)
+          router.push(state.reroute || { name: 'OxHome' })
+          state.reroute = undefined
+        })
+        .catch(() => { }) // swallows your errors
+    },
+
+    deleteAccount({ commit, dispatch }, oxId) {
+      api.delete('users/logout')
+        .then(() => {
+          commit('setOx', {})
+          router.push({ name: 'login' })
         })
         .catch(error => dispatch('newSnackbar', error))
     }
@@ -106,5 +150,6 @@ export default new Vuex.Store({
     //     commit('addMember', member)
     //   })
     // }
+
   }
 })
