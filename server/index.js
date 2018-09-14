@@ -56,6 +56,9 @@ io.on('connection', socket => {
   let user = undefined
   const errorHandler = error => {
     console.log(error)
+    if (error.name === 'ValidationError') {
+      error = 'Invalid input'
+    }
     socket.emit('errorOccurred', error)
   }
 

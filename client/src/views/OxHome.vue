@@ -72,6 +72,9 @@ export default {
     },
     createNewParty() {
       this.$store.dispatch("newParty", this.partyDialog);
+      this.partyDialog.name = "";
+      this.partyDialog.limit = "";
+      this.newPartyDialog = false;
     }
   },
 
