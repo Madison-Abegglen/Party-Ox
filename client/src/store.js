@@ -120,7 +120,7 @@ export default new Vuex.Store({
     },
 
     // IN CASE YOU HATE OUR APP
-    deleteAccount({ commit, dispatch }, oxId) {
+    deleteAccount({ commit, dispatch }) {
       api.delete('users/')
         .then(() => {
           commit('setOx', {})
@@ -137,30 +137,38 @@ export default new Vuex.Store({
       socket = io('//localhost:3000')
 
       socket.on('connected', () => {
-        console.log('connected to socket')
+        // console.log('connected to socket')
         socket.emit('setUser', state.ox)
-        console.log('sent ox to socket')
+        // console.log('sent ox to socket')
       })
 
       socket.on('parties', parties => {
         commit('setParties', parties)
-        console.log('got parties from socket')
+        // console.log('got parties from socket')
       })
 
       socket.on('party', party => {
         commit('setParties', [...state.parties, party])
-        console.log('got new party from socket')
+        // console.log('got new party from socket')
       })
 
       socket.on('errorOccurred', error => {
         dispatch('newSnackbar', error)
-        console.log('[SOCKET ERROR]', error)
+        // console.log('[SOCKET ERROR]', error)
       })
     },
 
     newParty(context, partyData) {
-      console.log(partyData)
-      socket.emit('newParty', partyData)
+      // console.log(partyData)
+
+      if (!partyData.limit) {
+        partyData.limit = Number.MAX_SAFE_INTEGER
+      }
+
+      socket.emit('newParty', {
+        name: partyData.name,
+        memberLimit: partyData.limit
+      })
     }
   }
 })

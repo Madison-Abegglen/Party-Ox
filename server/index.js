@@ -78,7 +78,19 @@ io.on('connection', socket => {
 
   socket.on('newParty', party => {
     // create party on model
-    Parties.create({ name: party.name, userId: user._id })
+    console.log(party.memberLimit)
+    if (typeof party.memberLimit !== 'number' || party.memberLimit < 1) {
+      return socket.emit('errorOccurred', 'Party Limit must be at least 1')
+    }
+
+
+    const partyObj = {
+      name: party.name,
+      memberLimit: party.memberLimit,
+      userId: user._id
+    }
+
+    Parties.create(partyObj)
       .then(party => socket.emit('party', party))
       .catch(errorHandler)
   })

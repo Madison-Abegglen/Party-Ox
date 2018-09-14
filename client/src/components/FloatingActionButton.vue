@@ -14,7 +14,7 @@ export default {
 <style scoped lang='scss'>
 .fab {
   position: absolute;
-  bottom: 1rem;
+  bottom: 2rem;
   right: 2rem;
   background-color: transparent;
   font-family: Roboto;

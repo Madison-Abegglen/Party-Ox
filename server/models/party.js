@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
-const chancee = require('chance')
+const Chance = require('chance')
+const chance = new Chance()
 
 const Song = new Schema({
   name: {
@@ -27,11 +28,11 @@ const schema = new Schema({
   queue: [Song],
   code: {
     type: String,
-    default: () => chance
+    default: () => chance.string({length: 5, pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'})
   },
   memberLimit: {
     type: Number,
-    default: Infinity
+    default: Number.MAX_SAFE_INTEGER
   },
   userId: {
     type: Schema.Types.ObjectId,

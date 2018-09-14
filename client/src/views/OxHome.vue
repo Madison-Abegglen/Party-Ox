@@ -16,12 +16,17 @@
 
 
     <v-dialog v-model="newPartyDialog">
-      <v-card>
+      <v-card class='party-form'>
         <v-card-title class="card-title">Create a new party</v-card-title>
+
         <v-divider></v-divider>
-        <v-text-field box type="text" name="partyName" v-model="partyDialog.name" label="Party Name" autocomplete="off" required/>
+
+        <v-text-field box type="text" name="partyName" v-model="partyDialog.name" label="Party Name *" autocomplete="off" required/>
         <v-text-field box type="number" name="partyLimit" v-model="partyDialog.limit" label="Party Limit" autocomplete="off" required/>        
+        <p class='caption'>* indicates a required field</p>
+
         <v-divider></v-divider>
+        
         <v-card-text>For members to join your party, give them the corresponding party code to enter on the home screen. Create party and you will recieve your code.</v-card-text>
         <square-button class="headline partyBtn" @click="createNewParty">Create party</square-button>
       </v-card>
@@ -54,8 +59,8 @@ export default {
       dialog: false,
       newPartyDialog: false,
       partyDialog: {
-        name: "",
-        limit: ""
+        name: '',
+        limit: ''
       }
     };
   },
@@ -73,7 +78,7 @@ export default {
     createNewParty() {
       this.$store.dispatch("newParty", this.partyDialog);
       this.partyDialog.name = "";
-      this.partyDialog.limit = "";
+      this.partyDialog.limit = Infinity;
       this.newPartyDialog = false;
     }
   },
@@ -136,6 +141,10 @@ export default {
   margin-top: 1rem;
   margin-bottom: 1rem;
   width: 100%;
+}
+
+.party-form {
+  padding: 1rem;
 }
 </style>
 
