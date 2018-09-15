@@ -84,12 +84,12 @@ export default new Vuex.Store({
           commit('setOx', res.data)
           dispatch('initSocket')
 
-          router.push(state.reroute || { name: 'OxHome' })
+          router.push(state.reroute || { name: 'ox-home' })
           state.reroute = undefined
         })
         .catch(error => dispatch('newSnackbar', error))
     },
-    logout({ commit, dispatch }, oxId) {
+    logout({ commit, dispatch }) {
       auth.delete('logout')
         .then(res => {
           commit('setOx', {})
@@ -102,7 +102,7 @@ export default new Vuex.Store({
         .then(res => {
           commit('setOx', res.data)
 
-          router.push(state.reroute || { name: 'OxHome' })
+          router.push(state.reroute || { name: 'ox-home' })
           state.reroute = undefined
         })
         .catch(error => dispatch('newSnackbar', error))
@@ -112,7 +112,7 @@ export default new Vuex.Store({
         .then(res => {
           commit('setOx', res.data)
 
-          router.push(state.reroute || { name: 'OxHome' })
+          router.push(state.reroute || { name: 'ox-home' })
           state.reroute = undefined
           dispatch('initSocket')
         })
@@ -149,6 +149,7 @@ export default new Vuex.Store({
 
       socket.on('party', party => {
         commit('setParties', [...state.parties, party])
+        router.push({ name: 'party-code' })
         // console.log('got new party from socket')
       })
 

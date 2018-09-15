@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import OxHome from './views/OxHome.vue'
 import Login from './views/Login.vue'
+import PartyCode from './views/PartyCode.vue'
 
 import store from './store'
 
@@ -11,16 +12,24 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'OxHome',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/home',
+      name: 'ox-home',
       component: OxHome,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
+      path: '/party-code',
+      name: 'party-code',
+      component: PartyCode,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
