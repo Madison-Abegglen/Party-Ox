@@ -51,25 +51,27 @@ const io = require('socket.io')(app, {
 const Parties = require('./models/party')
 
 io.on('connection', socket => {
-  // new connection
-  console.log('User connected')
+  // new connection to client
+
   let user = undefined
+
   const errorHandler = error => {
-    console.log(error)
     if (error.name === 'ValidationError') {
       error = 'Invalid input'
     }
     socket.emit('errorOccurred', error)
   }
 
-  // notify connector of successful
+  // notify client of successful connection
   socket.emit('connected', {
     socket: socket.id,
     message: 'Succesfully connected'
   })
 
   socket.on('setUser', userData => {
+    // update user obj
     user = userData;
+
     // send back list of parties for user
     Parties.find({ userId: user._id })
       .then(parties => socket.emit('parties', parties))
@@ -77,12 +79,15 @@ io.on('connection', socket => {
   })
 
   socket.on('newParty', party => {
-    // create party on model
-    console.log(party.memberLimit)
+    // must be logged in
+    if (!user) {
+      return socket.emit('errorOccurred', 'You must be logged in to create a party')
+    }
+
+    // has to be a number of at least 1
     if (typeof party.memberLimit !== 'number' || party.memberLimit < 1) {
       return socket.emit('errorOccurred', 'Party Limit must be at least 1')
     }
-
 
     const partyObj = {
       name: party.name,
@@ -90,6 +95,7 @@ io.on('connection', socket => {
       userId: user._id
     }
 
+    // create party on model
     Parties.create(partyObj)
       .then(party => socket.emit('party', party))
       .catch(errorHandler)
@@ -101,5 +107,5 @@ server.use('/api/*', (error, req, res) => res.status(400).send(error))
 server.use('*', (req, res) => res.status(404).send('<h1>404 NO PAGE HERE</h1>'))
 
 const port = 3000
-app.listen(port, () => console.log(`Sockets started on port: ${port}`))
+app.listen(port, () => console.log(`Sockets & Server started on port: ${port}`))
 // server.listen(port, () => console.log(`Server started on port: ${port}`))
