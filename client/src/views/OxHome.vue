@@ -22,11 +22,11 @@
         <v-divider></v-divider>
 
         <v-text-field box type="text" name="partyName" v-model="partyDialog.name" label="Party Name *" autocomplete="off" required/>
-        <v-text-field box type="number" name="partyLimit" v-model="partyDialog.limit" label="Party Limit" autocomplete="off" required/>        
+        <v-text-field box type="number" name="partyLimit" v-model="partyDialog.limit" label="Party Limit" autocomplete="off" required/>
         <p class='caption'>* indicates a required field</p>
 
         <v-divider></v-divider>
-        
+
         <v-card-text>For members to join your party, give them the corresponding party code to enter on the home screen. Create party and you will recieve your code.</v-card-text>
         <square-button class="headline partyBtn" @click="createNewParty">Create party</square-button>
       </v-card>
@@ -76,9 +76,9 @@ export default {
       return this.$store.dispatch("createParty");
     },
     createNewParty() {
-      this.$store.dispatch("newParty", this.partyDialog);
+      this.$store.dispatch("newParty", { ...this.partyDialog });
       this.partyDialog.name = "";
-      this.partyDialog.limit = Infinity;
+      this.partyDialog.limit = "";
       this.newPartyDialog = false;
     }
   },

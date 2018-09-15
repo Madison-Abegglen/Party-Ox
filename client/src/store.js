@@ -160,14 +160,14 @@ export default new Vuex.Store({
 
     newParty(context, partyData) {
       // console.log(partyData)
-
-      if (!partyData.limit) {
-        partyData.limit = Number.MAX_SAFE_INTEGER
+      let memberLimit = parseInt(partyData.limit)
+      if (!memberLimit) {
+        memberLimit = Number.MAX_SAFE_INTEGER
       }
 
       socket.emit('newParty', {
         name: partyData.name,
-        memberLimit: partyData.limit
+        memberLimit
       })
     }
   }
