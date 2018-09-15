@@ -44,6 +44,10 @@ export default {
     absolute: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 };

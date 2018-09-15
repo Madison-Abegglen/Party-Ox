@@ -25,19 +25,50 @@
             <p class='subheading'>Host a new party</p>
           </div>
 
-          <div class="login-content__form card elevation-2" v-else>
+          <v-form
+            v-else
+            @submit.prevent="signUpToggle ? signup() : login()"
+            v-model='input.valid'
+            class="login-content__form card elevation-2"
+          >
             <transition name='max-height-6'>
-              <v-text-field v-if="signUpToggle" box type="text" name="name" v-model="input.name" label="Name"
-              autocomplete="off" />
-            </transition> 
-            <form @submit.prevent="signUpToggle ? signup() : login()">
-              <v-text-field box type="text" name="email" v-model="input.email" label="Email" autocomplete="off" />
-              <v-text-field box type="password" name="password" v-model="input.password" label="Password" autocomplete="off" />
-              <base-button type="submit" primary raised v-if="!signUpToggle">Login</base-button>
-              <base-button type="submit" primary raised v-else>Signup</base-button>
-              <base-button @click="signUpToggle = !signUpToggle" flat>or {{signUpToggle ? "login":"signup"}}</base-button>
-            </form>
-          </div>
+              <v-text-field
+                v-if="signUpToggle"
+                v-model="input.name"
+                :rules='[rules.required]'
+                type="text"
+                label="Name"
+                name='name'
+                box
+                autocomplete='off'
+              />
+            </transition>
+            <v-text-field
+              v-model="input.email"
+              :rules='[rules.required]'
+              type="email"
+              label="Email"
+              name='email'
+              box
+              autocomplete='off'
+            />
+            <v-text-field
+              :type="input.showPassword ? 'text' : 'password'"
+              :append-icon="input.showPassword ? 'visibility_off' : 'visibility'"
+              @click:append="input.showPassword = !input.showPassword"
+              v-model="input.password"
+              :rules='[rules.required, rules.min]'
+              hint='Password must be at least 8 characters'
+              label="Password"
+              name='password'
+              box
+              :loading='input.loading'
+              autocomplete='off'
+            />
+            <base-button :disabled='!input.valid' type="submit" primary raised v-if="!signUpToggle">Login</base-button>
+            <base-button :disabled='!input.valid' type="submit" primary raised v-else>Signup</base-button>
+            <base-button @click="signUpToggle = !signUpToggle" flat>or {{signUpToggle ? "login":"signup"}}</base-button>
+          </v-form>
 
         </transition>
       </section>
@@ -49,6 +80,7 @@
 import TitleHeader from "@/components/TitleHeader";
 
 export default {
+  name: 'Login',
   mounted() {
     this.$store.dispatch("authenticate");
   },
@@ -60,7 +92,14 @@ export default {
       input: {
         name: "",
         email: "",
-        password: ""
+        password: "",
+        showPassword: false,
+        valid: true,
+        loading: false
+      },
+      rules: {
+        required: v => !!v || 'Required',
+        min: v => v.length >= 8 || 'Password must be at least 8 characters'
       },
       signUpToggle: false,
       oxFormToggle: false,
@@ -68,18 +107,21 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$store.dispatch("login", {
+    async login() {
+      this.input.loading = true
+      await this.$store.dispatch("login", {
         email: this.input.email,
         password: this.input.password
-      });
+      })
+      this.input.loading = false
     },
     signup() {
+      this.input.loading = true
       this.$store.dispatch("signup", {
         name: this.input.name,
         email: this.input.email,
         password: this.input.password
-      });
+      })
     }
   }
 };
