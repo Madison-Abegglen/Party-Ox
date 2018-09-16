@@ -5,12 +5,12 @@
     <main class='login-content'>
       <section class='member'>
         <transition name='fade' mode='out-in'>
-          <div v-if='!memberFormToggle'>
+          <div v-if='!memberFormToggle' key='button'>
             <base-button outline @click='memberFormToggle = true; oxFormToggle = false'>Join</base-button>
             <p class='subheading'>Join an existing party</p>
           </div>
 
-          <div v-else class="card member-content__form">
+          <div v-else class="card member-content__form" key='form'>
             <v-text-field box type="text" name="code" v-model="input.code" label="Enter code here" autocomplete="off" />
             <base-button primary>Join</base-button>
           </div>
@@ -18,9 +18,9 @@
       </section>
 
       <section class='ox'>
-        <transition name='opacity' mode='out-in'>
+        <transition name='fade' mode='out-in'>
 
-          <div v-if='!oxFormToggle'>
+          <div v-if='!oxFormToggle' key='button'>
             <base-button outline @click="oxFormToggle = true; memberFormToggle = false">Host</base-button>
             <p class='subheading'>Host a new party</p>
           </div>
@@ -29,7 +29,8 @@
             v-else
             @submit.prevent="signUpToggle ? signup() : login()"
             v-model='input.valid'
-            class="login-content__form card elevation-2"
+            class="login-content__form card elevation-10"
+            key='form'
           >
             <transition name='max-height-6'>
               <v-text-field
@@ -159,11 +160,12 @@ export default {
 <style lang='scss'>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+  transform: translate(-1rem);
 }
 
 .max-height-6-enter-active,
