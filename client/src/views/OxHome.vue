@@ -14,8 +14,8 @@
         <floating-action-button @click="newPartyDialog = true">Create new party</floating-action-button>
       </main>
 
-      <v-dialog v-model="newPartyDialog">
-        <v-card class='party-form'>
+      <v-dialog v-model="newPartyDialog" width='800'>
+        <v-card class='floaty-form'>
           <v-card-title class="card-title">Create a new party</v-card-title>
 
           <v-divider></v-divider>
@@ -27,11 +27,11 @@
           <v-divider></v-divider>
 
           <v-card-text>For members to join your party, give them the corresponding party code to enter on the home screen. Create party and you will recieve your code.</v-card-text>
-          <square-button class="headline partyBtn" @click="createNewParty">Create party</square-button>
+          <square-button class="subheading partyBtn" @click="createNewParty">Create party</square-button>
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="dialog">
+      <v-dialog class='floaty-form' width='400' v-model="dialog">
         <v-card>
           <v-card-title>Warning</v-card-title>
           <v-card-text>Are you sure you want to delete your account?</v-card-text>
@@ -40,7 +40,7 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <square-button class="v-card-btn" @click="deleteAccount(); dialog=false">DELETE</square-button>
+            <square-button error class="v-card-btn" @click="deleteAccount(); dialog=false">DELETE</square-button>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -114,7 +114,11 @@ export default {
   font-size: 1.5rem;
 }
 .partyBtn {
-  height: 4rem;
+  height: 3.5rem;
+  font-size: 1.25rem;
+  &:hover {
+    background-color: #111 !important;
+  }
 }
 .ox-home {
   &__content {
@@ -150,14 +154,10 @@ export default {
   width: 100%;
 }
 
-.party-form {
-  padding: 1rem;
-}
-</style>
-
-<style lang='scss'>
-.menu-option * {
-  justify-content: unset !important;
-  font-weight: 400 !important;
+.floaty-form {
+  padding: 0.75rem 1.25rem;
+  @media (min-width: 800px) {
+    padding: 0.75rem 2rem;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-btn class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : undefined'
+  <v-btn class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : error ? "error" : undefined'
     v-bind='$props' v-on='$listeners'>
     <slot></slot>
   </v-btn>
@@ -46,6 +46,10 @@ export default {
       default: false
     },
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    error: {
       type: Boolean,
       default: false
     }
