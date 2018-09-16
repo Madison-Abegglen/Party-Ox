@@ -10,7 +10,7 @@ import { VBtn } from 'vuetify'
 
 export default {
   name: "base-button",
-  extends: VBtn
+  extends: VBtn,
   props: {
     primary: {
       type: Boolean,
