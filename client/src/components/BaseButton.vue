@@ -10,6 +10,7 @@ import { VBtn } from 'vuetify'
 
 export default {
   name: "base-button",
+  extends: VBtn
   props: {
     primary: {
       type: Boolean,
@@ -23,15 +24,40 @@ export default {
       type: Boolean,
       default: false
     },
+    flat: {
+      type: Boolean,
+      default: false
+    },
+    raised: {
+      type: Boolean,
+      default: false
+    },
+    depressed: {
+      type: Boolean,
+      default: false
+    },
+    outline: {
+      type: Boolean,
+      default: false
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    absolute: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     error: {
       type: Boolean,
       default: false
     }
-  },
-  extends: {
-    VBtn
   }
-}
+};
 </script>
 
 <style scoped lang='scss'>
