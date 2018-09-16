@@ -107,13 +107,11 @@ export default {
     };
   },
   methods: {
-    async login() {
-      this.input.loading = true
-      await this.$store.dispatch("login", {
+    login() {
+      this.$store.dispatch("login", {
         email: this.input.email,
         password: this.input.password
       })
-      this.input.loading = false
     },
     signup() {
       this.input.loading = true
