@@ -11,7 +11,7 @@
 
         <square-button class='headline menu-option' @click="dialog = true">DELETE ACCOUNT</square-button>
 
-        <floating-action-button @click="newPartyDialog = true">Create new party</floating-action-button>
+        <floating-action-button absolute bottom right @click="newPartyDialog = true">Create new party</floating-action-button>
       </main>
 
       <v-dialog v-model="newPartyDialog" width='800'>
