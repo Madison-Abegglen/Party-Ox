@@ -21,7 +21,7 @@
         <transition name='opacity' mode='out-in'>
 
           <div v-if='!oxFormToggle'>
-            <base-button outline @click="oxFormToggle = true; memberFormToggle = false">Host</base-button>
+            <floating-action-button outline @click="oxFormToggle = true; memberFormToggle = false">Host</floating-action-button>
             <p class='subheading'>Host a new party</p>
           </div>
 
@@ -78,6 +78,7 @@
 
 <script>
 import TitleHeader from "@/components/TitleHeader";
+import FloatingActionButton from '@/components/FloatingActionButton';
 
 export default {
   name: 'Login',
@@ -85,7 +86,8 @@ export default {
     this.$store.dispatch("authenticate");
   },
   components: {
-    TitleHeader
+    TitleHeader,
+    FloatingActionButton
   },
   data() {
     return {
