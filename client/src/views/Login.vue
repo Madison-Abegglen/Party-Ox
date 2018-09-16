@@ -63,7 +63,7 @@
               label="Password"
               name='password'
               box
-              :loading='input.loading'
+              :loading='$store.state.loading'
               autocomplete='off'
             />
             <base-button :disabled='!input.valid' type="submit" primary raised v-if="!signUpToggle">Login</base-button>
@@ -95,8 +95,7 @@ export default {
         email: "",
         password: "",
         showPassword: false,
-        valid: true,
-        loading: false
+        valid: true
       },
       rules: {
         required: v => !!v || 'Required',
@@ -128,8 +127,11 @@ export default {
 
 <style scoped lang='scss'>
 .login {
-  height: 100%;
   overflow: hidden;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .login-content {
@@ -137,7 +139,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100% - 3.975rem);
+  width: 100%;
+  flex: 1 0;
 }
 
 .card {

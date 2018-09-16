@@ -31,7 +31,8 @@ export default new Vuex.Store({
     members: [],
     parties: [],
     ox: {},
-    reroute: undefined
+    reroute: undefined,
+    loading: false
   },
 
   // IF YOURE READY COME AND GET IT
@@ -55,6 +56,9 @@ export default new Vuex.Store({
     },
     setParties(state, parties) {
       state.parties = parties
+    },
+    setLoading(state, loading) {
+      state.loading = loading
     }
   },
 
@@ -79,6 +83,7 @@ export default new Vuex.Store({
 
     // AUTHORIZATION FOUND BELOW
     login({ commit, dispatch, state }, creds) {
+      commit('setLoading', true)
       auth.post('login', creds)
         .then(res => {
           commit('setOx', res.data)
@@ -86,12 +91,16 @@ export default new Vuex.Store({
 
           router.push(state.reroute || { name: 'ox-home' })
           state.reroute = undefined
+          commit('setLoading', false)
         })
-        .catch(error => dispatch('newSnackbar', error))
+        .catch(error => {
+          dispatch('newSnackbar', error)
+          commit('setLoading', false)
+        })
     },
     logout({ commit, dispatch }) {
       auth.delete('logout')
-        .then(res => {
+        .then(() => {
           commit('setOx', {})
           router.push({ name: 'login' }) // go to login page
         })
