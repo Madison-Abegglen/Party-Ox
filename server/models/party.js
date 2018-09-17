@@ -28,7 +28,9 @@ const schema = new Schema({
   queue: [Song],
   code: {
     type: String,
-    default: () => chance.string({length: 5, pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'})
+    default: () => chance.string({length: 5, pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'}),
+    unique: true,
+    dropDups: true
   },
   memberLimit: {
     type: Number,
