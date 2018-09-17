@@ -36,8 +36,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
     color: #c5c6c7;
-    background-color: #0b0c10;
-    // background-color: hsl(228, 19%, 20%);
+    background-color: hsl(228, 19%, 8%);
     --light-color: #c5c6c7;
     --lighter-background: #1f2833;
   }
