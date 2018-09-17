@@ -10,10 +10,10 @@
             <p class='subheading'>Join an existing party</p>
           </div>
 
-          <div v-else class="card member-content__form" key='form'>
+          <v-form v-else class="card member-content__form" key='form' elevation-10>
             <v-text-field box type="text" name="code" v-model="input.code" label="Enter code here" autocomplete="off" />
             <base-button primary>Join</base-button>
-          </div>
+          </v-form>
         </transition>
       </section>
 
