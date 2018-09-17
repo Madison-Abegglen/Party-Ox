@@ -170,6 +170,10 @@ export default new Vuex.Store({
         dispatch('newSnackbar', error)
         // console.log('[SOCKET ERROR]', error)
       })
+
+      socket.on('partyDeleted', partyId => {
+        commit('setParties', state.parties.filter(party => party._id !== partyId))
+      })
     },
 
     newParty(context, partyData) {
@@ -183,6 +187,10 @@ export default new Vuex.Store({
         name: partyData.name,
         memberLimit
       })
+    },
+
+    deleteParty(context, partyId) {
+      socket.emit('deleteParty', partyId)
     }
   }
 })

@@ -113,13 +113,6 @@ export default {
   flex: 1 0;
 }
 
-.form-button {
-  height: 3.5rem;
-  font-size: 1.25rem;
-  &.party-btn:hover {
-    background-color: #111 !important;
-  }
-}
 .ox-home {
   &__content {
     padding: 2rem;
@@ -149,7 +142,20 @@ export default {
   margin-bottom: 1rem;
   width: 100%;
 }
+</style>
 
+<style lang='scss'>
+.menu-option > * {
+  justify-content: flex-start !important;
+}
+
+.form-button {
+  height: 3.5rem;
+  font-size: 1.25rem;
+  &.party-btn:hover {
+    background-color: #111 !important;
+  }
+}
 .floaty-form {
   display: flex;
   flex-direction: column;
@@ -158,13 +164,6 @@ export default {
     padding: 0.75rem 2rem;
   }
 }
-</style>
-
-<style lang='scss'>
-.menu-option > * {
-  justify-content: flex-start !important;
-}
-
 .error-overlay {
   background: linear-gradient(#ff5252, #ff5252) #424242;
   background-blend-mode: overlay;

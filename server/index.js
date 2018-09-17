@@ -77,15 +77,14 @@ io.on('connection', socket => {
     // send back list of parties for user
     Parties.find({ userId: user._id })
       .then(parties => {
-        for (party in parties) {
+        Promise.all(parties.map(party =>
           Members.find({ partyId: party._id })
             .then(members => {
-              party.members = members
-              console.log(party)
+              party._doc.members = members
             })
             .catch(errorHandler)
-        }
-        socket.emit('parties', parties)
+        ))
+          .then(() => socket.emit('parties', parties))
       })
       .catch(errorHandler)
 
@@ -121,8 +120,13 @@ io.on('connection', socket => {
       .then(party => socket.emit('party', party))
       .catch(errorHandler)
   })
-})
 
+  socket.on('deleteParty', partyId => {
+    Parties.findByIdAndRemove(partyId)
+      .then(() => socket.emit('partyDeleted', partyId))
+      .catch(errorHandler)
+  })
+})
 
 server.use('/api/*', (error, req, res) => res.status(400).send(error))
 server.use('*', (req, res) => res.status(404).send('<h1>404 NO PAGE HERE</h1>'))
