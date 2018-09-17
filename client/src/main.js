@@ -5,6 +5,7 @@ import store from './store'
 import './registerServiceWorker'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import VueClipboard from 'vue-clipboard2'
 
 Vue.use(Vuetify, {
   theme: {
@@ -13,6 +14,8 @@ Vue.use(Vuetify, {
     accent: '#163fd1'
   }
 })
+
+Vue.use(VueClipboard)
 
 const requireComponent = require.context(
   // The relative path of the components folder

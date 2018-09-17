@@ -4,7 +4,7 @@
     <div class='ox-home'>
       <main class='ox-home__content'>
         <h1 class='display-1 ox-username'>{{name}}</h1>
-        <square-button class='headline menu-option'>MY PARTIES {{party.length ? `(${party.length})` : ''}}</square-button>
+        <square-button  :to="{name: 'parties'}" class='headline menu-option'>MY PARTIES {{party.length ? `(${party.length})` : ''}}</square-button>
         <square-button class='headline menu-option' @click="logout">LOG OUT </square-button>
 
         <v-divider class="v-divider"></v-divider>
@@ -47,8 +47,8 @@
 
 <script>
 // @ is an alias to /src
-import SquareButton from '@/components/SquareButton.vue';
-import FloatingActionButton from '@/components/FloatingActionButton.vue';
+import SquareButton from "@/components/SquareButton.vue";
+import FloatingActionButton from "@/components/FloatingActionButton.vue";
 
 export default {
   data() {
@@ -56,26 +56,26 @@ export default {
       dialog: false,
       newPartyDialog: false,
       partyDialog: {
-        name: '',
-        limit: ''
+        name: "",
+        limit: ""
       }
     };
   },
 
   methods: {
     logout() {
-      return this.$store.dispatch('logout', this.oxId);
+      return this.$store.dispatch("logout", this.oxId);
     },
     deleteAccount() {
-      return this.$store.dispatch('deleteAccount', this.oxId);
+      return this.$store.dispatch("deleteAccount", this.oxId);
     },
     createPartyDialog() {
-      return this.$store.dispatch('createParty');
+      return this.$store.dispatch("createParty");
     },
     createNewParty() {
-      this.$store.dispatch('newParty', { ...this.partyDialog });
-      this.partyDialog.name = '';
-      this.partyDialog.limit = '';
+      this.$store.dispatch("newParty", { ...this.partyDialog });
+      this.partyDialog.name = "";
+      this.partyDialog.limit = "";
       this.newPartyDialog = false;
     }
   },

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { VBtn } from 'vuetify'
+import { VBtn } from "vuetify";
 
 export default {
   name: "base-button",
@@ -55,7 +55,8 @@ export default {
     error: {
       type: Boolean,
       default: false
-    }
+    },
+    to: {}
   }
 };
 </script>

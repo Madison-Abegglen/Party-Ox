@@ -28,11 +28,11 @@ export default new Vuex.Store({
       text: ''
     },
     currentRoom: {},
-    members: [],
     parties: [],
     ox: {},
     reroute: undefined,
-    loading: false
+    loading: false,
+    activeParty: {}
   },
 
   // IF YOURE READY COME AND GET IT
@@ -59,6 +59,9 @@ export default new Vuex.Store({
     },
     setLoading(state, loading) {
       state.loading = loading
+    },
+    setActiveParty(state, party) {
+      state.activeParty = party
     }
   },
 
@@ -158,6 +161,7 @@ export default new Vuex.Store({
 
       socket.on('party', party => {
         commit('setParties', [...state.parties, party])
+        commit('setActiveParty', party)
         router.push({ name: 'party-code' })
         // console.log('got new party from socket')
       })

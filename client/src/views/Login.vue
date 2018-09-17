@@ -81,7 +81,7 @@
 import TitleHeader from "@/components/TitleHeader";
 
 export default {
-  name: 'Login',
+  name: "Login",
   mounted() {
     this.$store.dispatch("authenticate");
   },
@@ -98,8 +98,8 @@ export default {
         valid: true
       },
       rules: {
-        required: v => !!v || 'Required',
-        min: v => v.length >= 8 || 'Password must be at least 8 characters'
+        required: v => !!v || "Required",
+        min: v => v.length >= 8 || "Password must be at least 8 characters"
       },
       signUpToggle: false,
       oxFormToggle: false,
@@ -111,15 +111,15 @@ export default {
       this.$store.dispatch("login", {
         email: this.input.email,
         password: this.input.password
-      })
+      });
     },
     signup() {
-      this.input.loading = true
+      this.input.loading = true;
       this.$store.dispatch("signup", {
         name: this.input.name,
         email: this.input.email,
         password: this.input.password
-      })
+      });
     }
   }
 };
@@ -168,7 +168,17 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
-  transform: translate(-1rem);
+  transform: scale(0);
+}
+
+.fade-enter-to,
+.fade-leave {
+  opacity: 1;
+  transform: scale(1);
+
+  .member-content__form {
+    transform: scale(1) translateY(-5rem) !important;
+  }
 }
 
 .max-height-6-enter-active,
