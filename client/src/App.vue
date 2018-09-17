@@ -34,10 +34,10 @@ export default {
     // font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     min-height: 100vh;
     color: #c5c6c7;
     background-color: #0b0c10;
+    // background-color: hsl(228, 19%, 20%);
     --light-color: #c5c6c7;
     --lighter-background: #1f2833;
   }

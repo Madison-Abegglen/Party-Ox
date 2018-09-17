@@ -16,7 +16,7 @@
 
       <v-dialog v-model="newPartyDialog" width='800'>
         <v-card class='floaty-form'>
-          <v-card-title class="card-title">Create a new party</v-card-title>
+          <v-card-title class="headline">Create a new party</v-card-title>
 
           <v-divider></v-divider>
 
@@ -27,21 +27,18 @@
           <v-divider></v-divider>
 
           <v-card-text>For members to join your party, give them the corresponding party code to enter on the home screen. Create party and you will recieve your code.</v-card-text>
-          <square-button class="subheading partyBtn" @click="createNewParty">Create party</square-button>
+          <square-button class="party-btn form-button" @click="createNewParty">Create party</square-button>
         </v-card>
       </v-dialog>
 
-      <v-dialog class='floaty-form' width='400' v-model="dialog">
-        <v-card>
-          <v-card-title>Warning</v-card-title>
+      <v-dialog width='400' v-model="dialog">
+        <v-card class='floaty-form error-overlay'>
+          <v-card-title class='headline'>Warning</v-card-title>
           <v-card-text>Are you sure you want to delete your account?</v-card-text>
 
           <v-divider></v-divider>
 
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <square-button error class="v-card-btn" @click="deleteAccount(); dialog=false">DELETE</square-button>
-          </v-card-actions>
+          <square-button error class="form-button" @click="deleteAccount(); dialog=false">DELETE</square-button>
         </v-card>
       </v-dialog>
     </div>
@@ -103,20 +100,23 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.ox-home-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .ox-home {
   position: relative;
-  min-height: calc(100vh - 49px);
+  width: 100%;
   max-width: 65rem;
-  margin: auto;
+  margin: 0 auto;
+  flex: 1 0;
 }
 
-.card-title {
-  font-size: 1.5rem;
-}
-.partyBtn {
+.form-button {
   height: 3.5rem;
   font-size: 1.25rem;
-  &:hover {
+  &.party-btn:hover {
     background-color: #111 !important;
   }
 }
@@ -144,10 +144,6 @@ export default {
   width: 100%;
 }
 
-.v-card-btn {
-  display: flex;
-}
-
 .v-divider {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -155,9 +151,22 @@ export default {
 }
 
 .floaty-form {
+  display: flex;
+  flex-direction: column;
   padding: 0.75rem 1.25rem;
   @media (min-width: 800px) {
     padding: 0.75rem 2rem;
   }
+}
+</style>
+
+<style lang='scss'>
+.menu-option > * {
+  justify-content: flex-start !important;
+}
+
+.error-overlay {
+  background: linear-gradient(#ff5252, #ff5252) #424242;
+  background-blend-mode: overlay;
 }
 </style>
