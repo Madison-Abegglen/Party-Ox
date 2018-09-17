@@ -49,6 +49,8 @@ const io = require('socket.io')(app, {
 
 // socket stuff
 const Parties = require('./models/party')
+const Members = require('./models/member')
+
 
 io.on('connection', socket => {
   // new connection to client
@@ -74,8 +76,27 @@ io.on('connection', socket => {
 
     // send back list of parties for user
     Parties.find({ userId: user._id })
-      .then(parties => socket.emit('parties', parties))
+      .then(parties => {
+        for (party in parties) {
+          Members.find({ partyId: party._id })
+            .then(members => {
+              party.members = members
+              console.log(party)
+            })
+            .catch(errorHandler)
+        }
+        socket.emit('parties', parties)
+      })
       .catch(errorHandler)
+
+    // try {
+    //   const parties = await Parties.find({ userId: user._id })
+    //   for (party in parties) {
+    //     party.members = await Members.find({ partyId: party._id })
+    //   }
+    // } catch(error) {
+    //   errorHandler(error)
+    // }
   })
 
   socket.on('newParty', party => {
