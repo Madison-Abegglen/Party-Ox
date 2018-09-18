@@ -20,7 +20,9 @@
         <div class='party-card-content'>
           <v-icon class="peopleIcon">people</v-icon>
 
-          <p class='member-length'>{{party.members.length}}</p>
+          <p class='member-length' :class='{ small: party.members.length >= 100 }'>
+            {{party.members.length < 100 ? party.members.length : '99+'}}
+          </p>
 
           <base-button class='trash-button' flat @click='partyToDelete = party; dialog = true'>
             <v-icon>delete_outline</v-icon>
@@ -53,7 +55,7 @@
 
 <script>
 import SquareButton from "@/components/SquareButton";
-import FloatingActionButton from "@/components/FloatingActionButton.vue";
+
 export default {
   name: "Parties",
   components: {
@@ -81,7 +83,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .my-parties-wrapper {
   height: 100%;
   display: flex;
@@ -143,10 +145,10 @@ export default {
   color: var(--primary);
   text-decoration: underline;
   cursor: pointer !important;
+  width: calc(100% - 5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-</style>
-
-<style lang='scss'>
 .party-card {
   display: flex !important;
   justify-content: space-between;
@@ -162,7 +164,17 @@ export default {
 }
 .member-length {
   transform: translateY(0.75rem);
-  color: var(--primary);
+  color: black;
+  border-radius: 100%;
+  background-color: white;
+  width: 1.6rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  &.small {
+    font-size: 0.75rem;
+  }
+  text-align: center;
+  margin-right: 0.5rem;
 }
 .peopleIcon {
   margin-right: 1.5rem;
@@ -172,6 +184,7 @@ export default {
 .trash-button {
   min-width: unset !important;
   padding: 0;
+  margin-right: 1.5rem;
   transform: translateY(0.15rem);
   opacity: 0.6;
   &:hover {
@@ -179,4 +192,7 @@ export default {
     color: #ff5252 !important;
   }
 }
+</style>
+
+<style lang='scss'>
 </style>

@@ -45,7 +45,10 @@ const router = new Router({
       path: '/party/:id',
       name: 'party',
       props: true,
-      component: Party
+      component: Party,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
