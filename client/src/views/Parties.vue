@@ -27,6 +27,7 @@
           </base-button>
         </div>
       </v-card>
+      <p class='title' v-if='allParties && !allParties.length'>No parties</p>
     </div>
 
     <v-dialog width='400' v-model="dialog">
@@ -43,7 +44,7 @@
     <footer class="footer">
       <base-button outline secondary round class='mx-auto back-button'
         :to="{name: 'ox-home'}">
-         <v-icon class='arrowIcon'>arrow_back_ios</v-icon>
+         <v-icon class='arrow-icon'>arrow_back_ios</v-icon>
         back to profile
       </base-button>
     </footer>
@@ -52,7 +53,7 @@
 
 <script>
 import SquareButton from "@/components/SquareButton";
-
+import FloatingActionButton from "@/components/FloatingActionButton.vue";
 export default {
   name: "Parties",
   components: {
@@ -115,7 +116,7 @@ export default {
   padding-right: 3.3rem;
   margin-top: 0.9rem;
 }
-.arrowIcon {
+.arrow-icon {
   display: flex;
   align-items: flex-end;
 }
@@ -127,6 +128,7 @@ export default {
   align-items: flex-end;
   margin: 1rem;
   line-height: 2.5rem;
+  max-width: 15rem;
 }
 .footer {
   position: fixed;
@@ -135,6 +137,12 @@ export default {
   background-color: var(--dark-background);
   padding-right: 1rem;
   padding-left: 1rem;
+}
+.card-title {
+  display: inline-block;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer !important;
 }
 </style>
 
@@ -146,10 +154,6 @@ export default {
   flex-direction: row;
   padding-left: 1rem;
   margin-top: 0.5rem;
-}
-.card-title {
-  display: inline-block;
-  color: var(--primary);
 }
 .party-card-content {
   display: flex;

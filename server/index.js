@@ -117,7 +117,7 @@ io.on('connection', socket => {
 
     // create party on model
     Parties.create(partyObj)
-      .then(party => socket.emit('party', party))
+      .then(party => socket.emit('party', { ...party._doc, members: [] }))
       .catch(errorHandler)
   })
 

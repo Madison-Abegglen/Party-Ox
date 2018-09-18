@@ -4,6 +4,7 @@ import OxHome from './views/OxHome.vue'
 import Login from './views/Login.vue'
 import PartyCode from './views/PartyCode.vue'
 import Parties from './views/Parties.vue'
+import Party from './views/Party.vue'
 
 import store from './store'
 
@@ -39,6 +40,12 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/party/:id',
+      name: 'party',
+      props: true,
+      component: Party
     }
   ]
 })
