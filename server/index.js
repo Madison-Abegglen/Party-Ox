@@ -126,6 +126,10 @@ io.on('connection', socket => {
       .then(() => socket.emit('partyDeleted', partyId))
       .catch(errorHandler)
   })
+
+  socket.on('joinParty', ({ name, partyCode }) => {
+    Partie
+  })
 })
 
 server.use('/api/*', (error, req, res) => res.status(400).send(error))

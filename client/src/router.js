@@ -5,6 +5,7 @@ import Login from './views/Login.vue'
 import PartyCode from './views/PartyCode.vue'
 import Parties from './views/Parties.vue'
 import Party from './views/Party.vue'
+import PartySettings from './views/PartySettings.vue'
 
 import store from './store'
 
@@ -46,6 +47,15 @@ const router = new Router({
       name: 'party',
       props: true,
       component: Party,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/party/:id/settings',
+      name: 'party-settings',
+      props: true,
+      component: PartySettings,
       meta: {
         requiresAuth: true
       }

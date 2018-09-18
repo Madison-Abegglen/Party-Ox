@@ -115,7 +115,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   padding-left: 2rem;
-  padding-right: 3.3rem;
+  padding-right: 2.5rem;
   margin-top: 0.9rem;
 }
 .arrow-icon {

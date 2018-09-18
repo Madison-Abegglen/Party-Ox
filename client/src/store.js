@@ -33,6 +33,7 @@ export default new Vuex.Store({
     reroute: undefined,
     loading: false,
     activeParty: {}
+
   },
 
   // IF YOURE READY COME AND GET IT
@@ -48,9 +49,7 @@ export default new Vuex.Store({
     setRoom(state, room) {
       state.currentRoom = room
     },
-    setMembers(state, member) {
-      state.members.push(member)
-    },
+
     setOx(state, ox) {
       state.ox = ox
     },
