@@ -89,7 +89,7 @@ export default {
   padding-left: 1rem;
   padding-bottom: 1rem;
   display: flex;
-  width: calc(100% - 2rem);
+  width: 100vw;
 }
 .uppercase {
   text-transform: uppercase;
