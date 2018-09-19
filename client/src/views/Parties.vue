@@ -21,7 +21,7 @@
           <v-icon class="people-icon">people</v-icon>
 
           <p class='member-length' :class='{ small: party.members.length >= 100 }'>
-            {{party.members.length < 100 ? party.members.length : '99+'}}
+            {{ party.members.length < 100 ? party.members.length : '99+' }}
           </p>
 
           <base-button class='trash-button' flat @click='partyToDelete = party; dialog = true'>
@@ -42,7 +42,9 @@
 
         <v-divider></v-divider>
 
-        <square-button error class="form-button" @click="deleteParty(); dialog=false">DELETE</square-button>
+        <v-card-actions>
+          <square-button error class="form-button" @click="deleteParty(); dialog=false">DELETE</square-button>
+        </v-card-actions>
       </v-card>
     </v-dialog>
 
@@ -87,7 +89,8 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.headline, .title {
+.headline:not(:global(.v-card__title)),
+.title {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
@@ -117,14 +120,7 @@ export default {
   line-height: 2.5rem;
   max-width: 15rem;
 }
-.footer {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  background-color: var(--dark-background);
-  padding-right: 1rem;
-  padding-left: 1rem;
-}
+
 .card-title {
   display: inline-block;
   color: var(--primary);
@@ -157,20 +153,6 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.member-length {
-  transform: translateY(0.75rem);
-  color: black;
-  border-radius: 100%;
-  background-color: white;
-  width: 1.6rem;
-  height: 1.6rem;
-  line-height: 1.6rem;
-  &.small {
-    font-size: 0.75rem;
-  }
-  text-align: center;
-  margin-right: 0.5rem;
-}
 .people-icon {
   margin-right: 1.5rem;
   transform: translateY(0.2rem);
@@ -189,10 +171,26 @@ export default {
   }
 }
 
-.trash-button, .people-icon, .member-length {
+.trash-button,
+.people-icon,
+.member-length {
   opacity: 0.75;
 }
 </style>
 
 <style lang='scss'>
+.member-length {
+  transform: translateY(0.75rem);
+  color: black;
+  border-radius: 100%;
+  background-color: white;
+  width: 1.6rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  &.small {
+    font-size: 0.75rem;
+  }
+  text-align: center;
+  margin-right: 0.5rem;
+}
 </style>

@@ -128,7 +128,19 @@ io.on('connection', socket => {
   })
 
   socket.on('joinParty', ({ name, partyCode }) => {
-    Partie
+    // Join the party
+  })
+
+  socket.on('getParty', partyCode => {
+    Parties.findOne({ code: partyCode })
+      .then(party => {
+        console.log(party)
+        if (!party) {
+          return errorHandler('Invalid code')
+        }
+        socket.emit('partyGot', party)
+      })
+      .catch(errorHandler)
   })
 })
 

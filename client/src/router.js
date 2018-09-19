@@ -6,6 +6,7 @@ import PartyCode from './views/PartyCode.vue'
 import Parties from './views/Parties.vue'
 import Party from './views/Party.vue'
 import PartySettings from './views/PartySettings.vue'
+import MemberLobby from './views/MemberLobby.vue'
 
 import store from './store'
 
@@ -59,6 +60,12 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/lobby/:code',
+      name: 'member-lobby',
+      component: MemberLobby,
+      props: true
     }
   ]
 })
@@ -66,7 +73,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (
     to.matched.some(route => route.meta.requiresAuth) &&
-    !store.getters.loggedIn
+    !store.getters.loggedIn &&
+    !store.getters.memberLoggedIn
   ) {
     if (to.name !== 'login') {
       store.state.reroute = { name: to.name, params: to.params }

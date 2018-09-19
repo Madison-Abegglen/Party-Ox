@@ -11,82 +11,93 @@
 </template>
 
 <script>
-  import SquareButton from "@/components/SquareButton.vue";
+import SquareButton from "@/components/SquareButton.vue";
 
-  export default {
-    components: {
-      SquareButton
-    }
-  };
+export default {
+  components: {
+    SquareButton
+  }
+};
 </script>
 
 <style lang="scss">
-  // App stuff
+// App stuff
 
-  body,
-  html {
-    margin: 0;
-    min-height: 100vh;
-    width: 100vw;
-  }
-  body::-webkit-scrollbar {
-    width: 6px;
-  }
-  #app {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh;
-    color: #c5c6c7;
-    --dark-background: hsl(228, 19%, 8%);
-    --light-color: #c5c6c7;
-    --lighter-background: #1f2833;
-    --primary: #66fcf1;
-    background-color: var(--dark-background);
-  }
+body,
+html {
+  margin: 0;
+  min-height: 100vh;
+  width: 100vw;
+}
+body::-webkit-scrollbar {
+  width: 6px;
+}
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  color: #c5c6c7;
+  --dark-background: hsl(228, 19%, 8%);
+  --light-color: #c5c6c7;
+  --lighter-background: #1f2833;
+  --primary: #66fcf1;
+  background-color: var(--dark-background);
+}
 
-  // Global styles
+// Global styles
 
-  .page-wrapper {
-    height: 100%;
-    width: calc(100% - 2rem);
-    margin: 0 1rem;
+.page-wrapper {
+  height: 100%;
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  // padding-bottom: 5rem;
+  padding-top: 64px;
+  background-color: var(--dark-background);
+  overflow-y: auto;
+
+  .page {
+    position: relative;
+    width: 100%;
+    max-width: 55rem;
+    margin: 0 auto;
+    flex: 1 0;
     display: flex;
     flex-direction: column;
-    // padding-bottom: 5rem;
-    padding-top: 64px;
-    background-color: var(--dark-background);
-    overflow-y: auto;
-
-    .page {
-      position: relative;
-      width: 100%;
-      max-width: 55rem;
-      margin: 0 auto;
-      flex: 1 0;
-      display: flex;
-      flex-direction: column;
-    }
   }
+}
 
-  // Transitions
+.footer {
+  position: fixed;
+  width: 100vw;
+  display: flex;
+  bottom: 0;
+  left: 0;
+  background-color: var(--dark-background);
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.175s;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-  }
+// Transitions
 
-  // Animations
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.175s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 
-  // @keyframes fade-in {
-  //   from {
-  //     opacity: 0;
-  //   }
-  //   to {
-  //     opacity: 1;
-  //   }
-  // }
+// Animations
+
+// @keyframes fade-in {
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }
 </style>

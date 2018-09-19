@@ -4,6 +4,9 @@
     <div class='page'>
       <main class='ox-home__content'>
         <h1 class='display-1 ox-username'>{{name}}</h1>
+        
+        <v-divider></v-divider>
+        
         <square-button flat  :to="{name: 'parties'}" class='headline menu-option'>MY PARTIES {{party.length ? `(${party.length})` : ''}}</square-button>
         <square-button flat class='headline menu-option' @click="logout">LOG OUT </square-button>
 
@@ -128,7 +131,8 @@ export default {
 .ox-username {
   text-align: left;
   text-transform: uppercase;
-  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   margin-left: 0.25rem;
   color: rgba(#66fcf1, 0.85);
   letter-spacing: 0.3rem !important;
@@ -160,7 +164,7 @@ export default {
   @media (min-width: 800px) {
     padding: 0.75rem 2rem;
   }
-  :global(.v-card__actions) {
+  .v-card__actions {
     justify-content: flex-end;
   }
   .form-button {

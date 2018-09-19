@@ -6,7 +6,7 @@
       <v-card class="party-code-card">
         <v-card-title class='headline card-title'>Your party code:</v-card-title>
         <v-divider></v-divider>
-        <section>
+        <section class='d-flex'>
           <p class="party-code display-1 primary--text">{{activeParty.code}}</p>
           <v-btn round flat type="button"
             v-clipboard:copy='activeParty.code'
@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 .party-code-wrapper {
   height: calc(100vh - 5rem);
   display: flex;

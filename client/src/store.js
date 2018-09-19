@@ -22,23 +22,24 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   // IDAHO
+  // (-  _ -)... i see what you did there
   state: {
     snackbar: {
       open: false,
       text: ''
     },
-    currentRoom: {},
     parties: [],
     ox: {},
     reroute: undefined,
     loading: false,
-    activeParty: {}
-
+    activeParty: {},
+    member: {}
   },
 
   // IF YOURE READY COME AND GET IT
   getters: {
-    loggedIn: state => !!state.ox.email
+    loggedIn: state => !!state.ox.email,
+    memberLoggedIn: state => !!state.member._id
   },
 
   // SCIENCE EXPERIMENTS HERE
@@ -46,10 +47,6 @@ export default new Vuex.Store({
     setSnackbar(state, snack) {
       state.snackbar = snack
     },
-    setRoom(state, room) {
-      state.currentRoom = room
-    },
-
     setOx(state, ox) {
       state.ox = ox
     },
@@ -104,6 +101,8 @@ export default new Vuex.Store({
       auth.delete('logout')
         .then(() => {
           commit('setOx', {})
+          commit('setParties', [])
+          commit('setActiveParty', {})
           router.push({ name: 'login' }) // go to login page
         })
         .catch(error => dispatch('newSnackbar', error))
@@ -190,6 +189,34 @@ export default new Vuex.Store({
 
     deleteParty(context, partyId) {
       socket.emit('deleteParty', partyId)
+    },
+
+    initMemberSocket({ commit, dispatch, state, getters }, partyCode) {
+      socket = io('//localhost:3000')
+
+      socket.on('errorOccurred', error => {
+        dispatch('newSnackbar', error)
+        // console.log('[SOCKET ERROR]', error)
+      })
+
+      socket.on('connected', () => {
+        socket.emit('getParty', partyCode)
+      })
+
+      socket.on('partyGot', party => {
+        console.log(party)
+        commit('setActiveParty', party)
+        router.push({ name: 'member-lobby', params: { code: partyCode } })
+      })
+
+      socket.on('partyJoined', member => {
+        commit('setMember', member)
+        router.push({ name: 'member-home' })
+      })
+    },
+
+    joinParty(context, { partyCode, name }) {
+      socket.emit('joinParty', { partyCode, name })
     }
   }
 })
