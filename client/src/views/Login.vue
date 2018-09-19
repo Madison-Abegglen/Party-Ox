@@ -4,7 +4,7 @@
 
     <main class='login-content'>
       <section class='member'>
-        <transition name='fade' mode='out-in'>
+        <transition name='scale' mode='out-in'>
           <div v-if='!memberFormToggle' key='button'>
             <base-button outline @click='memberFormToggle = true; oxFormToggle = false'>Join</base-button>
             <p class='subheading'>Join an existing party</p>
@@ -18,7 +18,7 @@
       </section>
 
       <section class='ox'>
-        <transition name='fade' mode='out-in'>
+        <transition name='scale' mode='out-in'>
 
           <div v-if='!oxFormToggle' key='button'>
             <base-button outline @click="oxFormToggle = true; memberFormToggle = false">Host</base-button>
@@ -154,25 +154,19 @@ export default {
 
 .member {
   margin-bottom: 5rem;
-  &-content__form {
-    transform: translateY(-5rem);
-  }
 }
-</style>
-
-<style lang='scss'>
-.fade-enter-active,
-.fade-leave-active {
+.scale-enter-active,
+.scale-leave-active {
   transition: opacity 0.3s, transform 0.3s;
 }
-.fade-enter,
-.fade-leave-to {
+.scale-enter,
+.scale-leave-to {
   opacity: 0;
-  transform: scale(0);
+  transform: scale(0.5);
 }
 
-.fade-enter-to,
-.fade-leave {
+.scale-enter-to,
+.scale-leave {
   opacity: 1;
   transform: scale(1);
 
@@ -192,4 +186,7 @@ export default {
 .max-height-6-leave-to {
   max-height: 0;
 }
+</style>
+
+<style lang='scss'>
 </style>
