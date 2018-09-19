@@ -4,7 +4,7 @@
     </base-header>
 
     <div class="page">
-      <h2 class="title uppercase primary--text">{{ox.name}}'s parties</h2>
+      <h2 class="headline uppercase primary--text" align='center'>{{ox.name}}'s parties</h2>
 
       <v-divider></v-divider>
 
@@ -29,7 +29,7 @@
           </base-button>
         </div>
       </v-card>
-      <p class='title' v-if='allParties && !allParties.length'>No parties</p>
+      <p class='title' align='center' v-if='allParties && !allParties.length'>No parties</p>
     </div>
 
     <v-dialog width='400' v-model="dialog">
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.title {
+.headline, .title {
   display: flex;
   justify-content: center;
   margin-top: 3rem;

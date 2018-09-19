@@ -8,9 +8,9 @@
 
       <v-divider class='divider'></v-divider>
 
-      <div>
-        <v-card-text class='uppercase party-mode'>Feature Coming Soon</v-card-text>
-        <v-select :items='["Ox hosting", "Free-play"]' value='Ox hosting' outline label='Party mode' disabled></v-select>
+      <div class='coming-soon'>
+        <v-select :items='["Ox hosting", "Free-play"]' value='Ox hosting' outline label='Party mode' disabled>
+        </v-select>
       </div>
 
       <h2 class='display-members-title uppercase'>Party members</h2>
@@ -120,4 +120,49 @@ export default {
     background-color: #111 !important;
   }
 }
+</style>
+
+<style lang='scss'>
+  .coming-soon {
+    position: relative;
+    margin: 1rem 0;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      text-transform: uppercase;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(#66fcf1, 0.15);
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      border-radius: 0.35rem;
+    }
+    &::after {
+      content: 'Feature coming soon';
+      color: var(--primary);
+      font-size: 1.25rem;
+      text-shadow: 1px 1px 5px black;
+      letter-spacing: 0.15rem;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      transform: translate(0, -50%);
+      z-index: 2;
+    }
+    * {
+      opacity: 0.85;
+    }
+    :global(.v-input__slot) {
+      margin: 0;
+    }
+    :global(.v-text-field__details) {
+      display: none;
+    }
+  }
 </style>

@@ -1,6 +1,11 @@
 <template>
-  <v-btn class='button' :style='{ color: primary ? "black" : "white" }' :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : error ? "error" : undefined'
-    v-bind='$props' v-on='$listeners'>
+  <v-btn
+    class='button'
+    :class='{ "button--circle": circle }'
+    v-bind='$props' v-on='$listeners'
+    :style='{ color: primary ? "black" : "white" }'
+    :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : error ? "error" : undefined'
+  >
     <slot></slot>
   </v-btn>
 </template>
@@ -56,7 +61,11 @@ export default {
       type: Boolean,
       default: false
     },
-    to: {}
+    to: {},
+    circle: {
+      type: Boolean,
+      default: false
+    }
   }
 };
 </script>
@@ -64,5 +73,11 @@ export default {
 <style scoped lang='scss'>
 .button {
   border-radius: 1.5rem;
+
+  &--circle {
+    min-width: unset !important;
+    width: 36px;
+    border-radius: 50%;
+  }
 }
 </style>

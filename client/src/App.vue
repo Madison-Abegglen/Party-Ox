@@ -48,6 +48,8 @@
 
   .page-wrapper {
     height: 100%;
+    width: calc(100% - 2rem);
+    margin: 0 1rem;
     display: flex;
     flex-direction: column;
     // padding-bottom: 5rem;

@@ -4,12 +4,12 @@
     <div class='page'>
       <main class='ox-home__content'>
         <h1 class='display-1 ox-username'>{{name}}</h1>
-        <square-button  :to="{name: 'parties'}" class='headline menu-option'>MY PARTIES {{party.length ? `(${party.length})` : ''}}</square-button>
-        <square-button class='headline menu-option' @click="logout">LOG OUT </square-button>
+        <square-button flat  :to="{name: 'parties'}" class='headline menu-option'>MY PARTIES {{party.length ? `(${party.length})` : ''}}</square-button>
+        <square-button flat class='headline menu-option' @click="logout">LOG OUT </square-button>
 
         <v-divider class="v-divider"></v-divider>
 
-        <square-button class='headline menu-option' @click="dialog = true">DELETE ACCOUNT</square-button>
+        <square-button flat class='headline menu-option' @click="dialog = true">DELETE ACCOUNT</square-button>
 
         <floating-action-button absolute bottom right @click="newPartyDialog = true">Create new party</floating-action-button>
       </main>

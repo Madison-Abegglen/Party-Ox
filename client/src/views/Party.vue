@@ -1,15 +1,29 @@
 <template>
   <div class='page-wrapper'>
     <base-header circle underline>
-      <base-button outline secondary round class='mx-auto back-button left-align'
-        :to="{name: 'parties'}" slot='before'>Back</base-button>
+      <base-button
+        circle
+        flat
+        class='mx-auto back-button left-align'
+        :to="{ name: 'parties' }"
+        slot='before'
+      >
+        <v-icon>arrow_back</v-icon>
+      </base-button>
 
-      <base-button outline secondary round class='mx-auto back-button right-align'
-        :to="{ name: 'party-settings', params: { id } }" slot='after'>Settings</base-button>
+      <base-button
+        circle
+        flat
+        class='mx-auto back-button right-align'
+        :to="{ name: 'party-settings', params: { id } }"
+        slot='after'
+      >
+        <v-icon>settings</v-icon>
+      </base-button>
     </base-header>
 
     <div class='page'>
-      <p class='party__title'>{{ party ? party.name : '' }}</p>
+      <p class='party__title headline'>{{ party ? party.name : '' }}</p>
 
       <v-divider style='divider'></v-divider>
 
@@ -58,7 +72,6 @@ export default {
   max-width: 65rem;
   margin: 0 auto;
   .party__title {
-    // width: calc(100% - 2rem);
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
