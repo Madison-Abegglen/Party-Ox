@@ -49,9 +49,8 @@ export default {
 
 <style scoped lang='scss'>
 .header {
-  position: relative;
-  z-index: 22;
   position: fixed;
+  z-index: 22;
   top: 0;
   left: 0;
   width: 100vw;
@@ -80,7 +79,7 @@ export default {
       border: solid 1px rgba(#66fcf1, 0.45);
       background-color: var(--lighter-background);
       filter: brightness(130%);
-      top: calc(50% - 0.5rem);
+      top: 50%;
       transform: translate(-50%, 0);
     }
   }
