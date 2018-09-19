@@ -13,16 +13,15 @@
         <v-select :items='["Ox hosting", "Free-play"]' value='Ox hosting' outline label='Party mode' disabled></v-select>
       </div>
 
-        <v-divider class='divider'></v-divider>
+      <h2 class='display-members-title uppercase'>Party members</h2>
 
-      <h2 class='display-members-title uppercase'>party members</h2>
-
-         <!-- <div> 
-            <p class='member-length' :class='{ small: party.members.length >= 100 }'>
+        <!--
+        <div>
+          <p class='member-length' :class='{ small: party.members.length >= 100 }'>
             {{party.members.length < 100 ? party.members.length : '99+'}}
-
           </p>
-        </div> -->
+        </div>
+        -->
 
       <v-divider class='divider'></v-divider>
 
