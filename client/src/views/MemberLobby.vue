@@ -20,7 +20,7 @@
               solo
             ></v-text-field>
 
-            <base-button
+          <base-button
             type='submit'
             outline
             secondary
