@@ -1,8 +1,8 @@
 <template>
-  <div class='login'>
+  <div class='page-wrapper'>
     <title-header title='PARTY-Ox' />
 
-    <main class='login-content'>
+    <main class='page'>
       <section class='member'>
         <transition name='scale' mode='out-in'>
           <div v-if='!memberFormToggle' key='button'>
@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.login {
+.page-wrapper {
   overflow: hidden;
   text-align: center;
   height: 100vh;
@@ -134,7 +134,7 @@ export default {
   flex-direction: column;
 }
 
-.login-content {
+.page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -186,7 +186,4 @@ export default {
 .max-height-6-leave-to {
   max-height: 0;
 }
-</style>
-
-<style lang='scss'>
 </style>

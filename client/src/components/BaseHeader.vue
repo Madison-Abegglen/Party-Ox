@@ -1,23 +1,21 @@
 <template>
-  <v-toolbar style='background-color: var(--lighter-background);'>
-    <v-flex class='header'>
-      <section class='header__before'>
-        <slot name='before'></slot>
-      </section>
-      <div v-if='!logoRight'>
-        <img class='header__logo circle' src='../assets/ox-circle.svg' v-if='circle' />
+  <v-toolbar style='background-color: var(--lighter-background);' :class='{ header: true, "header--underline": underline }'>
+    <section class='header__before'>
+      <slot name='before'></slot>
+    </section>
+    <div v-if='!logoRight'>
+      <img class='header__logo header__logo--circle' src='../assets/ox-circle.svg' v-if='circle' />
+      <img class='header__logo' src='../assets/ox-party.svg' v-else-if='party' />
+      <img class='header__logo' src='../assets/ox.svg' v-else />
+    </div>
+    <section class='header__after'>
+      <slot name='after'></slot>
+      <div v-if='logoRight'>
+        <img class='header__logo header__logo--circle' src='../assets/ox-circle.svg' v-if='circle' />
         <img class='header__logo' src='../assets/ox-party.svg' v-else-if='party' />
         <img class='header__logo' src='../assets/ox.svg' v-else />
       </div>
-      <section class='header__after'>
-        <slot name='after'></slot>
-        <div v-if='logoRight'>
-          <img class='header__logo circle' src='../assets/ox-circle.svg' v-if='circle' />
-          <img class='header__logo' src='../assets/ox-party.svg' v-else-if='party' />
-          <img class='header__logo' src='../assets/ox.svg' v-else />
-        </div>
-      </section>
-    </v-flex>
+    </section>
   </v-toolbar>
 </template>
 
@@ -40,6 +38,10 @@ export default {
     primary: {
       type: Boolean,
       default: false
+    },
+    underline: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -47,9 +49,22 @@ export default {
 
 <style scoped lang='scss'>
 .header {
-  display: flex;
-  justify-content: space-between;
   position: relative;
+  z-index: 22;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+
+  :global(.v-toolbar__content) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &.header--underline {
+    border-bottom: solid 1px rgba(#66fcf1, 0.3);
+  }
 
   &__logo {
     height: 6rem;
@@ -57,7 +72,7 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    &.circle {
+    &--circle {
       height: 4rem;
       width: 4rem;
       padding: 0.4rem;
@@ -65,7 +80,7 @@ export default {
       border: solid 1px rgba(#66fcf1, 0.45);
       background-color: var(--lighter-background);
       filter: brightness(130%);
-      top: 50%;
+      top: calc(50% - 0.5rem);
       transform: translate(-50%, 0);
     }
   }

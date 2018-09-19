@@ -1,7 +1,7 @@
 <template>
-  <div class="ox-home-wrapper">
-    <base-header circle primary style='border-bottom: solid 1px #66fcf150;' />
-    <div class='ox-home'>
+  <div class="page-wrapper">
+    <base-header circle underline />
+    <div class='page'>
       <main class='ox-home__content'>
         <h1 class='display-1 ox-username'>{{name}}</h1>
         <square-button  :to="{name: 'parties'}" class='headline menu-option'>MY PARTIES {{party.length ? `(${party.length})` : ''}}</square-button>
@@ -124,9 +124,7 @@ export default {
 .ox-username {
   text-align: left;
   text-transform: uppercase;
-  margin-top: 2rem;
   margin-bottom: 2.5rem;
-  // font-weight: bold;
   margin-left: 0.25rem;
   color: rgba(#66fcf1, 0.85);
   letter-spacing: 0.3rem !important;
@@ -135,6 +133,12 @@ export default {
   height: 4.5rem;
   margin-left: 0;
   width: 100%;
+  font-weight: normal !important;
+  letter-spacing: 0.15rem !important;
+
+  & > :global(*) {
+    justify-content: flex-start !important;
+  }
 }
 
 .v-divider {
@@ -145,10 +149,6 @@ export default {
 </style>
 
 <style lang='scss'>
-.menu-option > * {
-  justify-content: flex-start !important;
-}
-
 .form-button {
   height: 3.5rem;
   font-size: 1.25rem;

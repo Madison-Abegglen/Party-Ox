@@ -1,9 +1,9 @@
 <template>
-  <div class='settings-wrapper'>
+  <div class='page-wrapper'>
     <base-header circle style='border-bottom: solid 1px #66fcf150;'>
     </base-header>
 
-    <div class='settings'>
+    <div class='page'>
       <h2 class="title uppercase primary--text">Party Settings</h2>
 
       <v-divider class='divider'></v-divider>
@@ -62,27 +62,24 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.settings-wrapper {
+.page-wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
   padding-bottom: 5rem;
   background-color: var(--dark-background);
   overflow-y: auto;
+  .page {
+    position: relative;
+    width: 100%;
+    max-width: 45rem;
+    margin: 0 auto;
+    flex: 1 0;
+    display: flex;
+    flex-direction: column;
+  }
 }
-.settings {
-  position: relative;
-  width: 100%;
-  max-width: 45rem;
-  margin: 0 auto;
-  flex: 1 0;
-  display: flex;
-  flex-direction: column;
-}
-// .divider {
-//   margin-left: 1rem;
-//   margin-right: 1rem;
-// }
+
 .footer {
   position: fixed;
   left: 0;

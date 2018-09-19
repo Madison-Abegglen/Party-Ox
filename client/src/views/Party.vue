@@ -1,6 +1,6 @@
 <template>
-  <div class='party-wrapper'>
-    <base-header circle style='border-bottom: solid 1px #66fcf150;'>
+  <div class='page-wrapper'>
+    <base-header circle underline>
       <base-button outline secondary round class='mx-auto back-button left-align'
         :to="{name: 'parties'}" slot='before'>Back</base-button>
 
@@ -8,7 +8,7 @@
         :to="{ name: 'party-settings', params: { id } }" slot='after'>Settings</base-button>
     </base-header>
 
-    <div class='party'>
+    <div class='page'>
       <p class='party__title'>{{ party ? party.name : '' }}</p>
 
       <v-divider style='divider'></v-divider>
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.party {
+.page {
   max-width: 65rem;
   margin: 0 auto;
   .party__title {

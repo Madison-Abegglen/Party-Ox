@@ -1,9 +1,9 @@
 <template>
-  <div class="my-parties-wrapper">
-    <base-header circle primary style='border-bottom: solid 1px #66fcf150; z-index: 22; position: fixed; top: 0; right: 0;'>
+  <div class="page-wrapper">
+    <base-header circle underline>
     </base-header>
 
-    <div class="party-list">
+    <div class="page">
       <h2 class="title uppercase primary--text">{{ox.name}}'s parties</h2>
 
       <v-divider></v-divider>
@@ -13,12 +13,12 @@
         <p class="uppercase">Members</p>
       </div>
       <!-- V-FOR BELOW -->
-      <v-card class="party-card" v-for="party in allParties" :key="party._id">
+      <v-card class="party-card elevation-10" v-for="party in allParties" :key="party._id">
         <v-card-title class="card-title" @click="$router.push({ name: 'party', params: { id: party._id } })">
           {{party.name}}
         </v-card-title>
         <div class='party-card-content'>
-          <v-icon class="peopleIcon">people</v-icon>
+          <v-icon class="people-icon">people</v-icon>
 
           <p class='member-length' :class='{ small: party.members.length >= 100 }'>
             {{party.members.length < 100 ? party.members.length : '99+'}}
@@ -35,7 +35,10 @@
     <v-dialog width='400' v-model="dialog">
       <v-card class='floaty-form error-overlay'>
         <v-card-title class='headline'>Warning</v-card-title>
-        <v-card-text>Are you sure you want to delete {{partyToDelete.name || ''}}?</v-card-text>
+        <v-card-text>
+          Are you sure you want to delete
+          <strong>{{partyToDelete.name || ''}}</strong>?
+        </v-card-text>
 
         <v-divider></v-divider>
 
@@ -84,24 +87,6 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.my-parties-wrapper {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 5rem;
-  padding-top: 64px;
-  background-color: var(--dark-background);
-  overflow-y: auto;
-}
-.party-list {
-  position: relative;
-  width: 100%;
-  max-width: 65rem;
-  margin: 0 auto;
-  flex: 1 0;
-  display: flex;
-  flex-direction: column;
-}
 .title {
   display: flex;
   justify-content: center;
@@ -143,7 +128,6 @@ export default {
 .card-title {
   display: inline-block;
   color: var(--primary);
-  text-decoration: underline;
   cursor: pointer !important;
   width: calc(100% - 5rem);
   overflow: hidden;
@@ -155,7 +139,18 @@ export default {
   align-items: center;
   flex-direction: row;
   padding-left: 1rem;
-  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem 1rem;
+  background-color: #212121 !important;
+  transition: box-shadow 0.2s, transform 0.2s, background-color 0.2s;
+
+  &:not(:hover) {
+    box-shadow: none !important;
+  }
+  &:hover {
+    transform: translateY(-0.2rem);
+    background-color: #313131 !important;
+  }
 }
 .party-card-content {
   display: flex;
@@ -176,21 +171,26 @@ export default {
   text-align: center;
   margin-right: 0.5rem;
 }
-.peopleIcon {
+.people-icon {
   margin-right: 1.5rem;
   transform: translateY(0.2rem);
-  opacity: 0.6;
 }
 .trash-button {
   min-width: unset !important;
   padding: 0;
   margin-right: 1.5rem;
   transform: translateY(0.15rem);
-  opacity: 0.6;
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 1rem;
   &:hover {
     opacity: 1;
     color: #ff5252 !important;
   }
+}
+
+.trash-button, .people-icon, .member-length {
+  opacity: 0.75;
 }
 </style>
 
