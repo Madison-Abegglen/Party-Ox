@@ -27,7 +27,9 @@
           <v-divider></v-divider>
 
           <v-card-text>For members to join your party, give them the corresponding party code to enter on the home screen. Create party and you will recieve your code.</v-card-text>
-          <square-button class="party-btn form-button" @click="createNewParty">Create party</square-button>
+          <v-card-actions>
+            <square-button class="party-btn form-button" @click="createNewParty">Create party</square-button>
+          </v-card-actions>
         </v-card>
       </v-dialog>
 
@@ -38,7 +40,9 @@
 
           <v-divider></v-divider>
 
-          <square-button error class="form-button" @click="deleteAccount(); dialog=false">DELETE</square-button>
+          <v-card-actions>
+            <square-button error class="form-button" @click="deleteAccount(); dialog=false">DELETE</square-button>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </div>
@@ -149,19 +153,23 @@ export default {
 </style>
 
 <style lang='scss'>
-.form-button {
-  height: 3.5rem;
-  font-size: 1.25rem;
-  &.party-btn:hover {
-    background-color: #111 !important;
-  }
-}
 .floaty-form {
   display: flex;
   flex-direction: column;
   padding: 0.75rem 1.25rem;
   @media (min-width: 800px) {
     padding: 0.75rem 2rem;
+  }
+  :global(.v-card__actions) {
+    justify-content: flex-end;
+  }
+  .form-button {
+    height: 3rem;
+    font-size: 1.15rem;
+
+    &.party-btn:hover {
+      background-color: #111 !important;
+    }
   }
 }
 .error-overlay {
