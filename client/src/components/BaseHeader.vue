@@ -79,8 +79,7 @@ export default {
       border: solid 1px rgba(#66fcf1, 0.45);
       background-color: var(--lighter-background);
       filter: brightness(130%);
-      top: 50%;
-      transform: translate(-50%, 0);
+      top: 100%;
     }
   }
 

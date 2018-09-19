@@ -109,6 +109,7 @@ export default {
   margin-bottom: 0.8rem;
   color: rgba(#66fcf1, 0.85);
   font-weight: lighter;
+  letter-spacing: 0.25rem;
 }
 .party-mode {
   color: rgba(#66fcf1, 0.75);
