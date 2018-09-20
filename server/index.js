@@ -136,11 +136,16 @@ io.on('connection', socket => {
     // Join the party
     Parties.findOne({ code: partyCode })
       .then(party => {
-        Members.create({ name, partyId: party._id })
-          .then(member => {
-            socket.emit('partyJoined', member)
+        Members.find({ partyId: party._id }).then(members => {
+          if (members.length >= party.memberLimit) {
+            return socket.emit('errorOccurred', 'Member limit reached')
+          }
+          Members.create({ name, partyId: party._id })
+            .then(member => {
+              socket.emit('partyJoined', member)
+            })
+            .catch(errorHandler)
           })
-          .catch(errorHandler)
         })
       .catch(errorHandler)
   })
