@@ -23,6 +23,7 @@ let api = Axios.create({
 export default new Vuex.Store({
   // IDAHO
   // (-  _ -)... i see what you did there
+  // LOL You're welcome :)
   state: {
     snackbar: {
       open: false,
