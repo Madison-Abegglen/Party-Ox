@@ -196,6 +196,7 @@ export default new Vuex.Store({
       socket.emit('deleteParty', partyId)
     },
 
+    // Members only socks
     initMemberSocket({ commit, dispatch, state, getters }, partyCode) {
       socket = io(baseURL)
 
