@@ -19,7 +19,7 @@
           <v-flex xs12 sm6>
             <v-text-field
               v-model="first"
-              label="First Name"
+              label="Name "
               solo
             ></v-text-field>
 
