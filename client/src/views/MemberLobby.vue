@@ -12,7 +12,10 @@
 
         <v-divider class='funny-divider'></v-divider>
 
-        <v-form class='name-form'>
+        <v-form
+          class='name-form'
+          @submit.prevent='$store.dispatch("joinParty", { partyCode: party.code, name: first })'
+        >
           <v-flex xs12 sm6>
             <v-text-field
               v-model="first"
@@ -26,7 +29,6 @@
             secondary
             round
             class='mx-auto name-form-button'
-            @submit.prevent='$store.dispatch("joinParty", { partyCode: party.code, name: first })'
             >Join Party</base-button>
           </v-flex>
         </v-form>
