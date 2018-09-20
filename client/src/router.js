@@ -66,7 +66,9 @@ const router = new Router({
       name: 'member-lobby',
       component: MemberLobby,
       props: true
-    }
+    },
+    // {
+    // }
   ]
 })
 
