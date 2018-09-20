@@ -133,7 +133,7 @@ io.on('connection', socket => {
       .then(party => {
         Members.create({ name, partyId: party._id })
           .then(member => {
-            socket.emit('partyJo]ined', member)
+            socket.emit('partyJoined', member)
           })
           .catch(errorHandler)
         })
@@ -147,7 +147,7 @@ io.on('connection', socket => {
         if (!party) {
           return errorHandler('Invalid party code')
         }
-        socket.emit('partyGot', party)
+        socket.emit('partyGot', party);
       })
       .catch(errorHandler)
   })
