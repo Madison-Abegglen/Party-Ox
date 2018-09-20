@@ -1,8 +1,14 @@
-const express = require('express')
-const server = express()
+const express = require('express');
+
+// create server
+const server = express();
+// create other part of server (sockets and serve front-end)
+const app = require('http').createServer(server);
+
+server.use(express.static(__dirname + '/../client/dist/'))
 
 const cors = require('cors')
-const whitelist = ['http://localhost:8080', 'http://192.168.0.34:8080']
+const whitelist = ['http://localhost:8080', 'https://partyox.herokuapp.com/']
 const corsOptions = {
   origin: function (origin, callback) {
     const originIsWhitelisted = whitelist.indexOf(origin) !== -1
@@ -41,8 +47,7 @@ server.use('/api/users/', routes.users)
 // server.use('/api/parties/', routes.parties)
 // server.use('/api/members/', routes.members)
 
-// create server for socket and connect socket to it
-const app = require('http').createServer(server)
+// connect socket to server
 const io = require('socket.io')(app, {
   origins: '*:*'
 })

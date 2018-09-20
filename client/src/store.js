@@ -8,14 +8,17 @@ let socket
 
 Vue.use(Vuex)
 
+const production = !window.location.host.includes('localhost')
+const baseURL = production ? '//partyox.herokuapp.com' : '//localhost:3000'
+
 let auth = Axios.create({
-  baseURL: "//localhost:3000/auth/",
+  baseURL: `//${baseURL}/auth/`,
   timeout: 3000,
   withCredentials: true
 })
 
 let api = Axios.create({
-  baseURL: "//localhost:3000/api/",
+  baseURL: `//${baseURL}/api/`,
   timeout: 3000,
   withCredentials: true
 })
@@ -175,6 +178,7 @@ export default new Vuex.Store({
       })
     },
 
+    // THE PARTY DON'T START 'TILL I WALK IN
     newParty(context, partyData) {
       // console.log(partyData)
       let memberLimit = parseInt(partyData.limit)
