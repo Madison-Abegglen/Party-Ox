@@ -204,7 +204,7 @@ export default new Vuex.Store({
       })
 
       socket.on('partyGot', party => {
-        console.log(party)
+        // console.log(party)
         commit('setActiveParty', party)
         router.push({ name: 'member-lobby', params: { code: partyCode } })
       })
