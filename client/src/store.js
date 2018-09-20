@@ -148,7 +148,7 @@ export default new Vuex.Store({
       if (!getters.loggedIn) {
         return;
       }
-      socket = io('//localhost:3000')
+      socket = io(baseURL)
 
       socket.on('connected', () => {
         // console.log('connected to socket')
@@ -197,7 +197,7 @@ export default new Vuex.Store({
     },
 
     initMemberSocket({ commit, dispatch, state, getters }, partyCode) {
-      socket = io('//localhost:3000')
+      socket = io(baseURL)
 
       socket.on('errorOccurred', error => {
         dispatch('newSnackbar', error)
