@@ -50,7 +50,7 @@
 
       <div>
         <!-- <v-card></v-card> -->
-        <h4 class='title uppercase' style='font-weight: lighter;'>No Party Members</h4>
+        <h4 v-if='!party.members.length' class='title uppercase' style='font-weight: lighter;'>No Party Members</h4>
       </div>
 
       <footer class="footer">
