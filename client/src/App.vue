@@ -77,6 +77,7 @@ body::-webkit-scrollbar {
   background-color: var(--dark-background);
   padding-right: 1rem;
   padding-left: 1rem;
+  padding-bottom: 1rem;
 }
 
 // Transitions

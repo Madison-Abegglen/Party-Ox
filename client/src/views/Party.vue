@@ -1,25 +1,6 @@
 <template>
   <div class='page-wrapper'>
     <base-header circle underline>
-      <base-button
-        circle
-        flat
-        class='mx-auto back-button left-align'
-        :to="{ name: 'parties' }"
-        slot='before'
-      >
-        <v-icon>arrow_back</v-icon>
-      </base-button>
-
-      <base-button
-        circle
-        flat
-        class='mx-auto back-button right-align'
-        :to="{ name: 'party-settings', params: { id } }"
-        slot='after'
-      >
-        <v-icon>settings</v-icon>
-      </base-button>
     </base-header>
 
     <div class='page'>
@@ -42,7 +23,29 @@
         </v-tab-item>
       </v-tabs>
     </div>
+    <footer class='footer'>
+      <base-button
+        circle
+        flat
+        large
+        class='mx-auto back-button left-align'
+        :to="{ name: 'parties' }"
+        slot='before'
+      >
+        <v-icon large>arrow_back</v-icon>
+      </base-button>
 
+      <base-button
+        circle
+        flat
+        large
+        class='mx-auto back-button right-align'
+        :to="{ name: 'party-settings', params: { id } }"
+        slot='after'
+      >
+        <v-icon large>settings</v-icon>
+      </base-button>
+    </footer>
   </div>
 </template>
 
