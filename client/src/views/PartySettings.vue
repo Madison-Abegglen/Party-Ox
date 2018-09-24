@@ -49,7 +49,9 @@
       <v-divider class='mb-2'></v-divider>
 
       <div>
-        <!-- <v-card></v-card> -->
+        <ul v-if='party.members.length' style='list-style: none;'>
+          <member-list-item v-for='memberData in party.members' :key='memberData._id' :data='memberData'></member-list-item>
+        </ul>
         <h4 v-if='!party.members.length' class='title uppercase' style='font-weight: lighter;'>No Party Members</h4>
       </div>
 
@@ -70,6 +72,7 @@
 </template>
 
 <script>
+import MemberListItem from "@/components/MemberListItem";
 export default {
   name: "PartySettings",
   props: ["id"],
@@ -89,6 +92,10 @@ export default {
     onError() {
       this.$store.dispatch("newSnackbar", "Unable to copy code");
     }
+  },
+
+  components: {
+    MemberListItem
   }
 };
 </script>
