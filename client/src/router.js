@@ -7,6 +7,7 @@ import Parties from './views/Parties.vue'
 import Party from './views/Party.vue'
 import PartySettings from './views/PartySettings.vue'
 import MemberLobby from './views/MemberLobby.vue'
+import MemberHome from './views/MemberHome.vue'
 
 import store from './store'
 
@@ -67,8 +68,12 @@ const router = new Router({
       component: MemberLobby,
       props: true
     },
-    // {
-    // }
+    {
+      path: '/home/:memberId',
+      name: 'member-home',
+      component: MemberHome,
+      props: true
+    }
   ]
 })
 

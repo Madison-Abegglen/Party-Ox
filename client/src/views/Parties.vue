@@ -49,7 +49,7 @@
     </v-dialog>
 
     <footer class="footer">
-      <base-button outline secondary round class='mx-auto back-button'
+      <base-button smal outline secondary round class='mx-auto back-button'
         :to="{name: 'ox-home'}">
          <v-icon class='arrow-icon'>arrow_back_ios</v-icon>
         back to profile
