@@ -41,18 +41,18 @@
       <div class='d-flex justify-space-between align-center my-2'>
         <h2 class='headline display-members-title uppercase'>Party members</h2>
 
-        <p class='member-length' style='flex-grow: 0 !important;' :class='{ small: party.members.length >= 100 }'>
-          {{ party.members.length < 100 ? party.members.length : '99+' }}
+        <p class='member-length' style='flex-grow: 0 !important;' :class='{ small: party.members && party.members.length >= 100 }'>
+          {{ party.members ? (party.members.length < 100 ? party.members.length : '99+') : '' }}
         </p>
       </div>
 
       <v-divider class='mb-2'></v-divider>
 
       <div>
-        <ul v-if='party.members.length' style='list-style: none;'>
+        <ul v-if='party.members && party.members.length' style='list-style: none;'>
           <member-list-item v-for='memberData in party.members' :key='memberData._id' :data='memberData'></member-list-item>
         </ul>
-        <h4 v-if='!party.members.length' class='title uppercase' style='font-weight: lighter;'>No Party Members</h4>
+        <h4 v-if='!party.members || !party.members.length' class='title uppercase' style='font-weight: lighter;'>No Party Members</h4>
       </div>
 
       <footer class="footer">

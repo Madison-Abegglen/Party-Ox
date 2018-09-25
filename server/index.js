@@ -69,6 +69,21 @@ io.on('connection', socket => {
     socket.emit('errorOccurred', error)
   }
 
+  const getParties = () => {
+    return new Promise((resolve, reject) => Parties.find({ userId: user._id })
+      .then(parties => {
+        Promise.all(parties.map(party =>
+          Members.find({ partyId: party._id })
+            .then(members => {
+              party._doc.members = members
+            })
+            .catch(errorHandler)
+        )).then(() => resolve(parties))
+      })
+      .catch(errorHandler)
+    )
+  }
+
   // notify client of successful connection
   socket.emit('connected', {
     socket: socket.id,
@@ -80,24 +95,13 @@ io.on('connection', socket => {
     user = userData;
 
     // send back list of parties for user
-    Parties.find({ userId: user._id })
-      .then(parties => {
-        Promise.all(parties.map(party =>
-          Members.find({ partyId: party._id })
-            .then(members => {
-              party._doc.members = members
-            })
-            .catch(errorHandler)
-        ))
-          .then(() => socket.emit('parties', parties))
-      })
-      .catch(errorHandler)
+    getParties().then(parties => socket.emit('parties', parties))
 
     // try {
     //   const parties = await Parties.find({ userId: user._id })
-    //   for (party in parties) {
+    //   parties.forEach(party => {
     //     party.members = await Members.find({ partyId: party._id })
-    //   }
+    //   })
     // } catch(error) {
     //   errorHandler(error)
     // }
@@ -106,7 +110,7 @@ io.on('connection', socket => {
   socket.on('newParty', party => {
     // must be logged in
     if (!user) {
-      return socket.emit('errorOccurred', 'You must be logged in to create a party')
+      return errorHandler('You must be logged in to create a party')
     }
 
     // has to be a number of at least 1
@@ -129,6 +133,18 @@ io.on('connection', socket => {
   socket.on('deleteParty', partyId => {
     Parties.findByIdAndRemove(partyId)
       .then(() => socket.emit('partyDeleted', partyId))
+      .catch(errorHandler)
+  })
+
+  socket.on('kickOutMember', memberId => {
+    if (!user) {
+      return errorHandler('You must be logged in to create a party')
+    }
+
+    Members.findByIdAndRemove(memberId)
+      .then(() =>
+        getParties().then(parties => socket.emit('parties', parties))
+      )
       .catch(errorHandler)
   })
 

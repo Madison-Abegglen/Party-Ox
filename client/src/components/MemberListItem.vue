@@ -9,7 +9,7 @@
         <v-icon>arrow_forward</v-icon>
       </base-button>
       <div style='transition: width 0.2s; overflow: hidden' :style='{ width: open ? "10rem" : "0" }'>
-        <square-button>Kick out?</square-button>
+        <square-button @click='$store.dispatch("kickOutMember", data._id)'>Kick out?</square-button>
       </div>
     </section>
   </li>

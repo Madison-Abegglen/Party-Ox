@@ -196,8 +196,13 @@ export default new Vuex.Store({
       socket.emit('deleteParty', partyId)
     },
 
+    kickOutMember(context, memberId) {
+      console.log('kicking out member: ' + memberId)
+      socket.emit('kickOutMember', memberId)
+    },
+
     // Members only socks
-    initMemberSocket({ commit, dispatch, state, getters }, partyCode) {
+    initMemberSocket({ commit, dispatch }, partyCode) {
       socket = io(baseURL)
 
       socket.on('errorOccurred', error => {
