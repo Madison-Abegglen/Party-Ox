@@ -65,6 +65,7 @@ body::-webkit-scrollbar {
     flex: 1 0;
     display: flex;
     flex-direction: column;
+    padding-bottom: 4rem;
   }
 }
 
@@ -78,6 +79,10 @@ body::-webkit-scrollbar {
   padding-right: 1rem;
   padding-left: 1rem;
   padding-bottom: 1rem;
+  & > * {
+    margin-top: 1rem !important;
+    margin-bottom: 0 !important;
+  }
 }
 
 // Transitions
