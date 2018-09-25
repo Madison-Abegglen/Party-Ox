@@ -197,7 +197,7 @@ export default new Vuex.Store({
     },
 
     kickOutMember(context, memberId) {
-      console.log('kicking out member: ' + memberId)
+      // console.log('kicking out member: ' + memberId)
       socket.emit('kickOutMember', memberId)
     },
 
@@ -222,7 +222,7 @@ export default new Vuex.Store({
 
       socket.on('partyJoined', member => {
         commit('setMember', member)
-        router.push({ name: 'member-home' })
+        router.push({ name: 'member-home', params: { memberId: member._id }})
       })
     },
 
