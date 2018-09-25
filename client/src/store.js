@@ -222,7 +222,7 @@ export default new Vuex.Store({
 
       socket.on('partyJoined', member => {
         commit('setMember', member)
-        router.push({ name: 'member-home', params: { memberId: member._id }})
+        router.push({ name: 'member-home' })
       })
     },
 

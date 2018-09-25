@@ -16,13 +16,7 @@
 
 <script>
   export default {
-    name: 'MemberHome',
-    props: {
-      memberId: {
-        type: String,
-        required: true
-      }
-    }
+    name: 'MemberHome'
   }
 </script>
 

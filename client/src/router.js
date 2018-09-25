@@ -69,10 +69,9 @@ const router = new Router({
       props: true
     },
     {
-      path: '/home/:memberId',
+      path: '/member-home',
       name: 'member-home',
-      component: MemberHome,
-      props: true
+      component: MemberHome
     }
   ]
 })
