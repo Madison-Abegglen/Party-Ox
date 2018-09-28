@@ -202,7 +202,7 @@ export default new Vuex.Store({
     },
 
     // Members only socks
-    initMemberSocket({ commit, dispatch }, partyCode) {
+    initMemberSocket({ commit, dispatch, state }, partyCode) {
       socket = io(baseURL)
 
       socket.on('errorOccurred', error => {
@@ -217,17 +217,22 @@ export default new Vuex.Store({
       socket.on('partyGot', party => {
         // console.log(party)
         commit('setActiveParty', party)
-        router.push({ name: 'member-lobby', params: { code: partyCode } })
+        router.push({ name: 'member-lobby', params: { code: party.code } })
       })
 
       socket.on('partyJoined', member => {
-        commit('setMember', member)
+        state.member = member
         router.push({ name: 'member-home' })
       })
     },
 
     joinParty(context, { partyCode, name }) {
       socket.emit('joinParty', { partyCode, name })
+    },
+
+    disconnectMember() {
+      socket.emit('disconnect')
+      router.push({ name: "login" });
     }
   }
 })

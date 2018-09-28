@@ -49,7 +49,7 @@
       <v-divider class='mb-2'></v-divider>
 
       <div>
-        <ul v-if='party.members && party.members.length' style='list-style: none;'>
+        <ul class="pl-3" v-if='party.members && party.members.length' style='list-style: none;'>
           <member-list-item v-for='memberData in party.members' :key='memberData._id' :data='memberData'></member-list-item>
         </ul>
         <h4 v-if='!party.members || !party.members.length' class='title uppercase' style='font-weight: lighter;'>No Party Members</h4>

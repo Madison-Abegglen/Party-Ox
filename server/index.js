@@ -49,7 +49,8 @@ server.use('/api/users/', routes.users)
 
 // connect socket to server
 const io = require('socket.io')(app, {
-  origins: '*:*'
+  origins: '*:*',
+  pingTimeout: 500
 })
 
 // socket stuff
@@ -61,6 +62,7 @@ io.on('connection', socket => {
   // new connection to client
 
   let user = undefined
+  let member = undefined
 
   const errorHandler = error => {
     if (error.name === 'ValidationError') {
@@ -136,9 +138,9 @@ io.on('connection', socket => {
       .catch(errorHandler)
   })
 
-  socket.on('kickOutMember', memberId => {
+  const kickOutMember = memberId => {
     if (!user) {
-      return errorHandler('You must be logged in to create a party')
+      return errorHandler('You must be an ox to kick out a member.')
     }
 
     Members.findByIdAndRemove(memberId)
@@ -146,7 +148,8 @@ io.on('connection', socket => {
         getParties().then(parties => socket.emit('parties', parties))
       )
       .catch(errorHandler)
-  })
+  }
+  socket.on('kickOutMember', kickOutMember)
 
   socket.on('joinParty', ({ name, partyCode }) => {
     // Join the party
@@ -157,12 +160,13 @@ io.on('connection', socket => {
             return socket.emit('errorOccurred', 'Member limit reached')
           }
           Members.create({ name, partyId: party._id })
-            .then(member => {
-              socket.emit('partyJoined', member)
+            .then(memberData => {
+              member = memberData // store member locally to this socket connection
+              socket.emit('partyJoined', memberData)
             })
             .catch(errorHandler)
-          })
         })
+      })
       .catch(errorHandler)
   })
 
@@ -176,6 +180,16 @@ io.on('connection', socket => {
         socket.emit('partyGot', party);
       })
       .catch(errorHandler)
+  })
+
+  socket.on('disconnect', () => {
+    if (member) {
+      Members.findByIdAndRemove(member._id)
+        .then(() =>
+          getParties().then(parties => socket.emit('parties', parties))
+        )
+        .catch(errorHandler)
+    }
   })
 })
 

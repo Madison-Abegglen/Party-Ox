@@ -32,7 +32,7 @@
         :to="{ name: 'parties' }"
         slot='before'
       >
-        <v-icon large>arrow_back</v-icon>
+        <v-icon class="back" large>arrow_back</v-icon>
       </base-button>
 
       <base-button
@@ -43,7 +43,7 @@
         :to="{ name: 'party-settings', params: { id } }"
         slot='after'
       >
-        <v-icon large>settings</v-icon>
+        <v-icon class="add" large>settings</v-icon>
       </base-button>
     </footer>
   </div>
