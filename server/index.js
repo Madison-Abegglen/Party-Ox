@@ -57,6 +57,8 @@ const io = require('socket.io')(app, {
 const Parties = require('./models/party')
 const Members = require('./models/member')
 
+let oxen = {}
+
 
 io.on('connection', socket => {
   // new connection to client
@@ -95,6 +97,7 @@ io.on('connection', socket => {
   socket.on('setUser', userData => {
     // update user obj
     user = userData;
+    oxen[user._id] = socket
 
     // send back list of parties for user
     getParties().then(parties => socket.emit('parties', parties))
@@ -180,6 +183,30 @@ io.on('connection', socket => {
         socket.emit('partyGot', party);
       })
       .catch(errorHandler)
+  })
+
+  socket.on('newSuggestion', suggestionData => {
+    if (!member) {
+      return errorHandler('Must be a member to create a suggestion.')
+    }
+
+    Parties.findById(member.partyId)
+      .then(party => {
+        party.suggestions = party.suggestions.concat({
+          name: suggestionData.songName,
+          artist: suggestionData.artistName,
+          memberId: member._id
+        })
+        party.save(error => {
+          if (error) {
+            return errorHandler('An error occurred')
+            console.warn(error)
+          }
+          Parties.findById(member.partyId).then(p => console.log(p))
+          socket.emit('updateSuggestions', party._doc.suggestions.filter(suggestion => member._id.toString() == suggestion._doc.memberId.toString()))
+          oxen[party.userId.toString()].emit("updateSuggestions", { partyId: party._id, suggestions: party.suggestions })
+        })
+      })
   })
 
   socket.on('disconnect', () => {

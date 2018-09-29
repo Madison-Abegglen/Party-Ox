@@ -30,6 +30,7 @@
           <v-divider></v-divider>
 
           <v-card-text>For members to join your party, give them the corresponding party code to enter on the home screen. Create party and you will recieve your code.</v-card-text>
+         
           <v-card-actions>
             <square-button class="party-btn form-button" @click="createNewParty">Create party</square-button>
           </v-card-actions>

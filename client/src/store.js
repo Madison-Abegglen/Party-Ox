@@ -62,6 +62,12 @@ export default new Vuex.Store({
     },
     setActiveParty(state, party) {
       state.activeParty = party
+    },
+    setSuggestions(state, suggestions) {
+      state.activeParty.suggestions = suggestions
+    },
+    setSuggestionsOx(state, { partyId, suggestions }) {
+      state.parties.find(party => party._id === partyId).suggestions = suggestions
     }
   },
 
@@ -176,6 +182,10 @@ export default new Vuex.Store({
       socket.on('partyDeleted', partyId => {
         commit('setParties', state.parties.filter(party => party._id !== partyId))
       })
+
+      socket.on('updateSuggestions', data => {
+        commit('setSuggestionsOx', data)
+      })
     },
 
     // THE PARTY DON'T START 'TILL I WALK IN
@@ -215,7 +225,7 @@ export default new Vuex.Store({
       })
 
       socket.on('partyGot', party => {
-        // console.log(party)
+        party.suggestions = []
         commit('setActiveParty', party)
         router.push({ name: 'member-lobby', params: { code: party.code } })
       })
@@ -224,6 +234,10 @@ export default new Vuex.Store({
         state.member = member
         router.push({ name: 'member-home' })
       })
+
+      socket.on('updateSuggestions', suggestions => {
+        commit('setSuggestions', suggestions)
+      })
     },
 
     joinParty(context, { partyCode, name }) {
@@ -231,8 +245,12 @@ export default new Vuex.Store({
     },
 
     disconnectMember() {
-      socket.emit('disconnect')
+      socket.disconnect()
       router.push({ name: "login" });
+    },
+
+    createSuggestion({ dispatch, commit, state }, suggestionData) {
+      socket.emit('newSuggestion', suggestionData)
     }
   }
 })

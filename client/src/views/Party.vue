@@ -9,17 +9,17 @@
       <v-divider style='divider'></v-divider>
 
       <v-tabs slider-color="primary" color="transparent" grow class='tabs'>
-        <v-tab ripple :key='queue' class='tabs__tab'>
+        <v-tab ripple key='queue' class='tabs__tab'>
           Queue
         </v-tab>
-        <v-tab ripple :key='suggestions' class='tabs__tab'>
+        <v-tab ripple key='suggestions' class='tabs__tab'>
           Suggestions
         </v-tab>
-        <v-tab-item :key='queue'>
+        <v-tab-item key='queue-list'>
           WOW
         </v-tab-item>
-        <v-tab-item :key='suggestions'>
-          NOT WOW
+        <v-tab-item key='suggestions-list'>
+          <song v-for="suggestion in party.suggestions" :key="suggestion._id" :data="suggestion"></song>
         </v-tab-item>
       </v-tabs>
     </div>
