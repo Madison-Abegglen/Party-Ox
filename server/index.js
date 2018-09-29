@@ -180,15 +180,19 @@ io.on('connection', socket => {
         const suggestion = party.suggestions.id(suggestionId)
         const memberId = suggestion.memberId
         suggestion.remove()
-        const member = members[memberId.toString()]
-        if (member) {
-          member.emit("updateSuggestions", party.suggestions)
-        }
-        socket.emit("updateSuggestions", { partyId: party._id, suggestions: party.suggestions });
+        party.save(error => {
+          if (error) {
+            return errorHandler(error)
+          }
+
+          const member = members[memberId.toString()]
+          if (member) {
+            member.emit("updateSuggestions", party.suggestions)
+          }
+          socket.emit("updateSuggestions", { partyId: party._id, suggestions: party.suggestions });
+        })
       })
-      .catch(error => {
-        debugger
-      })
+      .catch(errorHandler)
   })
 
   socket.on('getParty', partyCode => {
