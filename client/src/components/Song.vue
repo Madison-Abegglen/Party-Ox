@@ -1,6 +1,9 @@
 <template>
   <v-card class="song">
     <p class='subheading song__name'><strong>{{data.name}}</strong> · <i>by {{data.artist}}</i></p>
+    <div class='ml-auto'>
+      <slot></slot>
+    </div>
   </v-card>
 </template>
 
@@ -20,6 +23,7 @@ export default {
   justify-content: space-between;
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
+  align-items: center;
   // cursor: pointer;
   // &::after {
   //   content: "";

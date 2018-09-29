@@ -211,6 +211,10 @@ export default new Vuex.Store({
       socket.emit('kickOutMember', memberId)
     },
 
+    deleteSuggestion(context, data) {
+      socket.emit('deleteSuggestion', data)
+    },
+
     // Members only socks
     initMemberSocket({ commit, dispatch, state }, partyCode) {
       socket = io(baseURL)

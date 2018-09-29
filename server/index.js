@@ -57,8 +57,8 @@ const io = require('socket.io')(app, {
 const Parties = require('./models/party')
 const Members = require('./models/member')
 
-let oxen = {}
-
+const oxen = {}
+const members = {}
 
 io.on('connection', socket => {
   // new connection to client
@@ -165,12 +165,30 @@ io.on('connection', socket => {
           Members.create({ name, partyId: party._id })
             .then(memberData => {
               member = memberData // store member locally to this socket connection
+              members[member._id.toString()] = socket
               socket.emit('partyJoined', memberData)
             })
             .catch(errorHandler)
         })
       })
       .catch(errorHandler)
+  })
+
+  socket.on('deleteSuggestion', ({ partyId, suggestionId }) => {
+    Parties.findById(partyId)
+      .then(party => {
+        const suggestion = party.suggestions.id(suggestionId)
+        const memberId = suggestion.memberId
+        suggestion.remove()
+        const member = members[memberId.toString()]
+        if (member) {
+          member.emit("updateSuggestions", party.suggestions)
+        }
+        socket.emit("updateSuggestions", { partyId: party._id, suggestions: party.suggestions });
+      })
+      .catch(error => {
+        debugger
+      })
   })
 
   socket.on('getParty', partyCode => {
@@ -216,6 +234,10 @@ io.on('connection', socket => {
           getParties().then(parties => socket.emit('parties', parties))
         )
         .catch(errorHandler)
+
+      delete members[member._id.toString()]
+    } else if (user) {
+      delete oxen[user._id.toString()]
     }
   })
 })

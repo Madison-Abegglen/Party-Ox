@@ -19,7 +19,10 @@
           WOW
         </v-tab-item>
         <v-tab-item key='suggestions-list'>
-          <song v-for="suggestion in party.suggestions" :key="suggestion._id" :data="suggestion"></song>
+          <song v-for="suggestion in party.suggestions" :key="suggestion._id" :data="suggestion">
+            <base-button circle flat ><v-icon>check</v-icon></base-button>
+            <base-button circle flat @click="deleteSuggestion(suggestion._id)" ><v-icon>close</v-icon></base-button>
+          </song>
         </v-tab-item>
       </v-tabs>
     </div>
@@ -50,6 +53,7 @@
 </template>
 
 <script>
+import Song from "@/components/Song.vue";
 export default {
   props: {
     id: {
@@ -66,6 +70,17 @@ export default {
     allParties() {
       this.$store.state.parties;
     }
+  },
+  methods: {
+    deleteSuggestion(suggestionId) {
+      this.$store.dispatch("deleteSuggestion", {
+        partyId: this.party._id,
+        suggestionId: suggestionId
+      });
+    }
+  },
+  components: {
+    Song
   }
 };
 </script>
