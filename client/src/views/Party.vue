@@ -16,12 +16,15 @@
           Suggestions
         </v-tab>
         <v-tab-item key='queue-list'>
-          WOW
+          <!-- <base-button @click='party.queue.forEach(song => clearSong(song._id))' flat class='ml-auto'>Clear <v-icon class='ml-2'>done_all</v-icon></base-button> -->
+          <song v-for='song in party.queue' :key='song._id' :data='song'>
+            <base-button circle flat @click='clearSong(song._id)'><v-icon>check</v-icon></base-button>
+          </song>
         </v-tab-item>
         <v-tab-item key='suggestions-list'>
           <song v-for="suggestion in party.suggestions" :key="suggestion._id" :data="suggestion">
-            <base-button circle flat ><v-icon>check</v-icon></base-button>
-            <base-button circle flat @click="deleteSuggestion(suggestion._id)" ><v-icon>close</v-icon></base-button>
+            <base-button circle flat @click='acceptSuggestion(suggestion._id)'><v-icon>check</v-icon></base-button>
+            <base-button circle flat @click="deleteSuggestion(suggestion._id)"><v-icon>close</v-icon></base-button>
           </song>
         </v-tab-item>
       </v-tabs>
@@ -75,8 +78,20 @@ export default {
     deleteSuggestion(suggestionId) {
       this.$store.dispatch("deleteSuggestion", {
         partyId: this.party._id,
-        suggestionId: suggestionId
+        suggestionId
       });
+    },
+    acceptSuggestion(suggestionId) {
+      this.$store.dispatch("acceptSuggestion", {
+        partyId: this.party._id,
+        suggestionId
+      })
+    },
+    clearSong(songId) {
+      this.$store.dispatch("clearSong", {
+        partyId: this.party._id,
+        songId
+      })
     }
   },
   components: {

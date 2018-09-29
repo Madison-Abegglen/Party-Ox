@@ -14,7 +14,7 @@
           Suggestions
         </v-tab>
         <v-tab-item key='queue'>
-          WOW
+          <song v-for='song in party.queue' :key='song._id' :data='song'></song>
         </v-tab-item>
         <v-tab-item key='suggestions'>
           <song v-for="suggestion in party.suggestions" :key="suggestion._id" :data="suggestion"></song>

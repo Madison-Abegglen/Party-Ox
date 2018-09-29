@@ -21,6 +21,7 @@
               v-model="first"
               label="Name "
               solo
+              style='width: 20rem;'
             ></v-text-field>
 
           <base-button
@@ -71,6 +72,11 @@ export default {
     party() {
       return this.$store.state.activeParty;
     }
+  },
+  data() {
+    return {
+      first: ''
+    }
   }
 };
 </script>
@@ -94,16 +100,14 @@ export default {
   }
 }
 .party-intro {
-  margin-right: auto;
-  margin-left: 1.2rem;
   margin-top: 4rem;
-  margin-bottom: 0.8rem;
   color: rgba(#66fcf1, 0.85);
   font-weight: lighter;
   letter-spacing: 0.25rem;
+  text-align: center;
 }
 .party-intro-pt2 {
-  margin-top: 6rem;
+  margin-top: 0.5rem;
   color: rgba(#66fcf1, 0.85);
   font-weight: lighter;
   display: flex;
@@ -115,6 +119,9 @@ export default {
 }
 .name-form {
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .name-form-button {
   display: flex;

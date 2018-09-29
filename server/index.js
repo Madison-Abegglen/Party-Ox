@@ -158,8 +158,8 @@ io.on('connection', socket => {
     // Join the party
     Parties.findOne({ code: partyCode })
       .then(party => {
-        Members.find({ partyId: party._id }).then(members => {
-          if (members.length >= party.memberLimit) {
+        Members.find({ partyId: party._id }).then(memberList => {
+          if (memberList.length >= party.memberLimit) {
             return socket.emit('errorOccurred', 'Member limit reached')
           }
           Members.create({ name, partyId: party._id })
@@ -175,25 +175,84 @@ io.on('connection', socket => {
   })
 
   socket.on('deleteSuggestion', ({ partyId, suggestionId }) => {
+    if (!user) {
+      return errorHandler('You must be a user to delete a suggestion')
+    }
+
     Parties.findById(partyId)
       .then(party => {
         const suggestion = party.suggestions.id(suggestionId)
-        const memberId = suggestion.memberId
+        const memberId = suggestion.memberId.toString()
         suggestion.remove()
         party.save(error => {
           if (error) {
             return errorHandler(error)
           }
 
-          const member = members[memberId.toString()]
+          const member = members[memberId]
           if (member) {
             member.emit("updateSuggestions", party.suggestions)
           }
-          socket.emit("updateSuggestions", { partyId: party._id, suggestions: party.suggestions });
+          socket.emit("updateSuggestions", { partyId, suggestions: party.suggestions });
         })
       })
       .catch(errorHandler)
   })
+
+
+  socket.on('acceptSuggestion', ({ partyId, suggestionId }) => {
+    if (!user) {
+      return errorHandler('You must be a user to accept a suggestion')
+    }
+
+    Parties.findById(partyId)
+    .then(party => {
+      const suggestion = party.suggestions.id(suggestionId)
+      const memberId = suggestion.memberId.toString()
+        party.queue = party.queue.concat({
+          name: suggestion.name,
+          artist: suggestion.artist,
+          memberId
+        })
+        suggestion.remove()
+
+        party.save(error => {
+          if (error) {
+            return errorHandler(error)
+          }
+
+          const member = members[memberId]
+          if (member) {
+            member.emit('updateSuggestions', party.suggestions)
+            member.emit('updateQueue', party.queue)
+          }
+          socket.emit('updateSuggestions', { partyId, suggestions: party.suggestions })
+          socket.emit('updateQueue', { partyId, queue: party.queue })
+        })
+      })
+      .catch(errorHandler)
+    })
+
+    socket.on('clearSong', ({ partyId, songId }) => {
+      if (!user) {
+        return errorHandler('You must be a user to accept a suggestion')
+      }
+
+      Parties.findById(partyId)
+      .then(party => {
+        const song = party.queue.id(songId)
+        song.remove()
+
+        party.save(error => {
+          if (error) {
+            return errorHandler(error)
+          }
+
+          socket.emit('updateQueue', { partyId, queue: party.queue })
+        })
+      })
+      .catch(errorHandler)
+    })
 
   socket.on('getParty', partyCode => {
     Parties.findOne({ code: partyCode })
