@@ -14,7 +14,7 @@
             v-else class="card member-content__form"
             key='form'
             elevation-10
-            @submit.prevent='$store.dispatch("initMemberSocket", input.code)'
+            @submit.prevent='$store.dispatch("initMemberSocket", input.code.toUpperCase())'
           >
             <v-text-field
               box type="text"
