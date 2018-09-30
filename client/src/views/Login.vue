@@ -20,8 +20,9 @@
               box type="text"
               name="code"
               v-model="input.code"
-              label="Enter code here" 
+              label="Enter code here"
               autocomplete="off"
+              :rules='[rules.required]'
             />
             <base-button
               type="submit"
@@ -170,14 +171,25 @@ export default {
 .member {
   margin-bottom: 5rem;
 }
+
+.member-content__form :global(input) {
+  text-transform: uppercase !important;
+}
+
 .scale-enter-active,
 .scale-leave-active {
   transition: opacity 0.3s, transform 0.3s;
+  will-change: opacity, transform;
 }
-.scale-enter,
-.scale-leave-to {
+form.scale-enter,
+form.scale-leave-to {
   opacity: 0;
   transform: scale(0.5);
+}
+div.scale-enter,
+div.scale-leave-to {
+  opacity: 0;
+  transform: scale(1) translateX(-50%);
 }
 
 .scale-enter-to,
