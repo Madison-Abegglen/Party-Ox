@@ -57,7 +57,6 @@
 
       <footer class="footer">
         <base-button
-          small
           outline
           secondary
           round
