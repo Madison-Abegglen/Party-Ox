@@ -116,6 +116,13 @@ export default {
     letter-spacing: 0.3rem !important;
   }
 }
+
+.footer {
+  max-width: calc(65rem + 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .left-align {
   margin-left: 0.5rem !important;
   margin-right: auto;

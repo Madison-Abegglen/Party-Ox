@@ -160,48 +160,16 @@ export default {
     letter-spacing: 0.3rem !important;
   }
 }
+.footer {
+  max-width: calc(65rem + 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
 .tabs {
   .tabs__tab {
     width: 50% !important;
     margin-bottom: 1rem;
   }
-}
-.floaty-form {
-  display: flex;
-  flex-direction: column;
-  padding: 0.75rem 1.25rem;
-  @media (min-width: 800px) {
-    padding: 0.75rem 2rem;
-  }
-  .v-card__actions {
-    justify-content: flex-end;
-  }
-  .form-button {
-    height: 3rem;
-    font-size: 1.15rem;
-
-    &.party-btn:hover {
-      background-color: #111 !important;
-    }
-  }
-}
-.error-overlay {
-  background: linear-gradient(#ff5252, #ff5252) #424242;
-  background-blend-mode: overlay;
-}
-
-.footer {
-  position: fixed;
-  width: 100vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  bottom: 0;
-  left: 0;
-  background-color: var(--dark-background);
-  padding-right: 1rem;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
 }
 
 .add-button::before {
