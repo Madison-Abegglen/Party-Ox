@@ -2,7 +2,7 @@
   <v-btn
     class='button'
     :class='{ "button--circle": circle }'
-    v-bind='$props' v-on='$listeners'
+    v-bind='$attrs' v-on='$listeners'
     :style='{ color: primary ? "black" : "white" }'
     :color='primary ? "primary" : secondary ? "secondary" : accent ? "accent" : error ? "error" : undefined'
   >
@@ -29,39 +29,10 @@ export default {
       type: Boolean,
       default: false
     },
-    flat: {
-      type: Boolean,
-      default: false
-    },
-    raised: {
-      type: Boolean,
-      default: false
-    },
-    depressed: {
-      type: Boolean,
-      default: false
-    },
-    outline: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    absolute: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     error: {
       type: Boolean,
       default: false
     },
-    to: {},
     circle: {
       type: Boolean,
       default: false
@@ -76,7 +47,9 @@ export default {
 
   &--circle {
     min-width: unset !important;
-    width: 36px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
     border-radius: 50%;
   }
 }

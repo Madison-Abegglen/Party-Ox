@@ -1,21 +1,24 @@
 <template>
-  <div class='party-code-wrapper'>
+  <div class='page-wrapper'>
     <base-header circle primary style='border-bottom: solid 1px #66fcf150;'>
     </base-header>
-    <div class='party-code'>
+    <div class='page'>
       <v-card class="party-code-card">
         <v-card-title class='headline card-title'>Your party code:</v-card-title>
         <v-divider></v-divider>
         <section class='d-flex'>
           <p class="party-code display-1 primary--text">{{activeParty.code}}</p>
-          <v-btn round flat type="button"
+          <base-button circle flat type="button"
             v-clipboard:copy='activeParty.code'
             v-clipboard:success='onCopy'
-            v-clipboard:error="onError">
+            v-clipboard:error="onError"
+          >
             <v-icon class="copyIcon">file_copy</v-icon>
-          </v-btn>
+          </base-button>
         </section>
       </v-card>
+    </div>
+    <footer class='footer'>
       <base-button
         raised
         outline
@@ -26,7 +29,7 @@
         <v-icon>arrow_back_ios</v-icon>
         Back to profile
       </base-button>
-    </div>
+    </footer>
   </div>
 </template>
 

@@ -45,34 +45,36 @@
     </footer>
 
     <v-dialog width='400' v-model="newSuggestionDialog">
-      <v-card>
+      <v-card class='px-2'>
         <v-card-title class='headline'>Create a new suggestion</v-card-title>
         <v-divider></v-divider>
-        <v-form>
+        <v-form v-model='suggestionValid' @submit.prevent="createSuggestion">
           <v-text-field
             box
             type="text"
             name="song"
-            v-model="createSuggestion.songName"
+            v-model="suggestion.name"
             label="Song Name"
             autocomplete="off"
-            required
+            :rules='[required]'
           />
           <v-text-field
             box
             type="text"
             name="artist"
-            v-model="createSuggestion.artistName"
+            v-model="suggestion.artist"
             label="Artist Name"
             autocomplete="off"
-            required
+            :rules='[required]'
           />
           <v-card-actions>
-            <base-button
+            <square-button
+              flat
               class="form-button"
-              @click="$store.dispatch('createSuggestion', createSuggestion); closeNewSuggestion()">
+              :disabled='!suggestionValid'
+            >
               Create Suggestion
-            </base-button>
+            </square-button>
           </v-card-actions>
         </v-form>
       </v-card>
@@ -92,35 +94,42 @@
 </template>
 
 <script>
-import Song from "@/components/Song.vue";
+import Song from '@/components/Song.vue'
+import SquareButton from '@/components/SquareButton.vue'
+
 export default {
-  name: "MemberHome",
+  name: 'MemberHome',
   data() {
     return {
       disconnectDialog: false,
       newSuggestionDialog: false,
-      createSuggestion: {
-        songName: "",
-        artistName: ""
-      }
+      suggestion: {
+        name: '',
+        artist: ''
+      },
+      suggestionValid: false,
+      required: v => !!v || 'Required'
     };
   },
   methods: {
     backToLogin() {
-      this.$store.dispatch("disconnectMember", this.memberId);
+      this.$store.dispatch('disconnectMember', this.memberId);
     },
-    newSuggestionDialog() {
-      this.$store.dispatch("createSuggestion");
+    createSuggestion() {
+      this.$store.dispatch('createSuggestion', this.suggestion)
+      this.closeNewSuggestion()
     },
     closeNewSuggestion() {
       this.newSuggestionDialog = false;
-      this.createSuggestion.songName = "";
-      this.createSuggestion.artistName = "";
+      this.suggestion = {
+        name: '',
+        artist: ''
+      }
     }
   },
   mounted() {
     if (!this.$store.state.member._id) {
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: 'login' });
     }
   },
   computed: {
@@ -129,12 +138,13 @@ export default {
     }
   },
   components: {
-    Song
+    Song,
+    SquareButton
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .page {
   max-width: 65rem;
   margin: 0 auto;

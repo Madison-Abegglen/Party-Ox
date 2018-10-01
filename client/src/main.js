@@ -50,3 +50,7 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+String.prototype.capitalize = function() {
+  return this[0].toLocaleUpperCase() + this.slice(1)
+}

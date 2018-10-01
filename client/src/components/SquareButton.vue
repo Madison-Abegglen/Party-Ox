@@ -1,18 +1,19 @@
 <template>
-  <base-button v-on='$listeners' v-bind='$props' style='border-radius: 0.1rem; padding-left: 20px; padding-right: 20px;'>
+  <base-button class='button--square' v-on='$listeners' v-bind='$attrs'>
     <slot></slot>
   </base-button>
 </template>
 
 <script>
-  import BaseButton from '@/components/BaseButton.vue'
-
   export default {
-    name: 'square-button',
-    extends: BaseButton
+    name: 'square-button'
   }
 </script>
 
-<style scoped>
-
+<style scoped lang='scss'>
+  .button.button--square {
+    border-radius: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 </style>

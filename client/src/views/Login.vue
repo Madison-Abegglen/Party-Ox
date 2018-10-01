@@ -22,12 +22,14 @@
               v-model="input.code"
               label="Enter code here"
               autocomplete="off"
-              :rules='[rules.required]'
+              :rules='[rules.exact(5, "code")]'
+              maxlength='5'
             />
             <base-button
               type="submit"
               primary
               raised
+              :disabled='input.code.length !== 5'
             >Join</base-button>
           </v-form>
         </transition>
@@ -52,7 +54,7 @@
               <v-text-field
                 v-if="signUpToggle"
                 v-model="input.name"
-                :rules='[rules.required]'
+                :rules='[rules.required("name")]'
                 type="text"
                 label="Name"
                 name='name'
@@ -62,7 +64,7 @@
             </transition>
             <v-text-field
               v-model="input.email"
-              :rules='[rules.required]'
+              :rules='[rules.required("email")]'
               type="email"
               label="Email"
               name='email'
@@ -74,7 +76,7 @@
               :append-icon="input.showPassword ? 'visibility_off' : 'visibility'"
               @click:append="input.showPassword = !input.showPassword"
               v-model="input.password"
-              :rules='[rules.required, rules.min]'
+              :rules='[rules.min(8, "password")]'
               hint='Password must be at least 8 characters'
               label="Password"
               name='password'
@@ -107,15 +109,17 @@ export default {
   data() {
     return {
       input: {
-        name: "",
-        email: "",
-        password: "",
+        name: '',
+        email: '',
+        password: '',
         showPassword: false,
-        valid: true
+        valid: true,
+        code: ''
       },
       rules: {
-        required: v => !!v || "Required",
-        min: v => v.length >= 8 || "Password must be at least 8 characters"
+        required: name => v => !!v || `${name.capitalize()} is required`,
+        min: (length, name) => v => v.length >= length || `${name.capitalize()} must be at least ${length} characters`,
+        exact: (length, name) => v => v.length === length || `${name.capitalize()} must be exactly ${length} characters`
       },
       signUpToggle: false,
       oxFormToggle: false,

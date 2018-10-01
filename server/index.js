@@ -285,7 +285,10 @@ io.on('connection', socket => {
           }
           Parties.findById(member.partyId).then(p => console.log(p))
           socket.emit('updateSuggestions', party._doc.suggestions.filter(suggestion => member._id.toString() == suggestion._doc.memberId.toString()))
-          oxen[party.userId.toString()].emit("updateSuggestions", { partyId: party._id, suggestions: party.suggestions })
+          const ox = oxen[party.userId.toString()]
+          if (ox) { // make sure ox exists so no error is thrown
+            ox.emit("updateSuggestions", { partyId: party._id, suggestions: party.suggestions })
+          }
         })
       })
   })
