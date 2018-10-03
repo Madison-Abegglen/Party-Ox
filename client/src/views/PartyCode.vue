@@ -5,7 +5,7 @@
     <div class='page'>
       <section class='party-code headline primary--text px-4 py-2'>
         <p class='party-code__label'>PARTY CODE</p>
-        <p class='ml-auto party-code__code' align='right'>{{activeParty.code}}</p>
+        <p class='party-code__code' align='right'>{{activeParty.code}}</p>
       </section>
       <section class='share-buttons'>
         <square-button icon
@@ -87,7 +87,9 @@ export default {
   }
 
   &__label {}
-  &__code {}
+  &__code {
+    margin-left: auto;
+  }
 }
 .share-buttons {
   display: flex;
