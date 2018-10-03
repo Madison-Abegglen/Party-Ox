@@ -78,6 +78,7 @@ export default {
 .party-code {
   display: flex;
   width: 40rem;
+  max-width: 100%;
   margin: 3rem auto 0;
   background-color: var(--lighter-background);
 
@@ -95,6 +96,7 @@ export default {
   display: flex;
   flex-direction: row-reverse;
   width: 40rem;
+  max-width: 100%;
   margin: 0.25rem auto 0;
 
   & > button {
