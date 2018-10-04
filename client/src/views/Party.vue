@@ -20,12 +20,14 @@
           <song v-for='song in party.queue' :key='song._id' :data='song'>
             <base-button circle flat @click='clearSong(song._id)'><v-icon>check</v-icon></base-button>
           </song>
+          <p v-if='!party.queue.length' class='title uppercase mt-5' align='center' style='font-weight: lighter;'>No songs in the queue.</p>
         </v-tab-item>
         <v-tab-item key='suggestions-list'>
           <song v-for="suggestion in party.suggestions" :key="suggestion._id" :data="suggestion">
             <base-button circle flat @click='acceptSuggestion(suggestion._id)'><v-icon>check</v-icon></base-button>
             <base-button circle flat @click="deleteSuggestion(suggestion._id)"><v-icon>close</v-icon></base-button>
           </song>
+          <p v-if='!party.suggestions.length' class='title uppercase' style='font-weight: lighter;'>No suggestions currently.</p>
         </v-tab-item>
       </v-tabs>
     </div>
@@ -101,6 +103,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.title {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.25rem !important;
+  font-weight: normal;
+}
 .page {
   max-width: 65rem;
   margin: 0 auto;

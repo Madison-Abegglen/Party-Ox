@@ -15,9 +15,11 @@
         </v-tab>
         <v-tab-item key='queue'>
           <song v-for='song in party.queue' :key='song._id' :data='song'></song>
+          <p v-if='!party.queue.length' class='title uppercase' align='center' style='font-weight: lighter;'>No songs in the queue currently.</p>
         </v-tab-item>
         <v-tab-item key='suggestions'>
           <song v-for="suggestion in party.suggestions" :key="suggestion._id" :data="suggestion"></song>
+          <p v-if='!party.suggestions.length' class='title uppercase' align='center' style='font-weight: lighter;'>You haven't made any suggestions.</p>
         </v-tab-item>
       </v-tabs>
     </div>
@@ -145,6 +147,15 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.title {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.25rem !important;
+  font-weight: normal;
+}
+
 .page {
   max-width: 65rem;
   margin: 0 auto;
