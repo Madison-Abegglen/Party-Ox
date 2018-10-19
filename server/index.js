@@ -206,9 +206,9 @@ io.on('connection', socket => {
     }
 
     Parties.findById(partyId)
-    .then(party => {
-      const suggestion = party.suggestions.id(suggestionId)
-      const memberId = suggestion.memberId.toString()
+      .then(party => {
+        const suggestion = party.suggestions.id(suggestionId)
+        const memberId = suggestion.memberId.toString()
         party.queue = party.queue.concat({
           name: suggestion.name,
           artist: suggestion.artist,
@@ -231,14 +231,14 @@ io.on('connection', socket => {
         })
       })
       .catch(errorHandler)
-    })
+  })
 
-    socket.on('clearSong', ({ partyId, songId }) => {
-      if (!user) {
-        return errorHandler('You must be a user to accept a suggestion')
-      }
+  socket.on('clearSong', ({ partyId, songId }) => {
+    if (!user) {
+      return errorHandler('You must be a user to accept a suggestion')
+    }
 
-      Parties.findById(partyId)
+    Parties.findById(partyId)
       .then(party => {
         const song = party.queue.id(songId)
         song.remove()
@@ -252,7 +252,7 @@ io.on('connection', socket => {
         })
       })
       .catch(errorHandler)
-    })
+  })
 
   socket.on('getParty', partyCode => {
     Parties.findOne({ code: partyCode })
@@ -274,8 +274,7 @@ io.on('connection', socket => {
     Parties.findById(member.partyId)
       .then(party => {
         party.suggestions = party.suggestions.concat({
-          name: suggestionData.songName,
-          artist: suggestionData.artistName,
+          ...suggestionData,
           memberId: member._id
         })
         party.save(error => {

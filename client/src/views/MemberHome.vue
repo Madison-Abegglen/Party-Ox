@@ -25,23 +25,10 @@
     </div>
 
     <footer class='footer'>
-      <base-button
-        circle
-        flat
-        large
-        class='mx-auto back-button left-align'
-        @click="disconnectDialog = true"
-        slot='after'
-      >
+      <base-button circle flat large class='mx-auto back-button left-align' @click="disconnectDialog = true" slot='after'>
         <v-icon large>arrow_back</v-icon>
       </base-button>
-      <base-button
-        circle
-        flat
-        large
-        class='mx-auto add-button right-align'
-        @click="newSuggestionDialog = true"
-      >
+      <base-button circle flat large class='mx-auto add-button right-align' @click="newSuggestionDialog = true">
         <v-icon class="add" large>add</v-icon>
       </base-button>
     </footer>
@@ -51,30 +38,10 @@
         <v-card-title class='headline'>Create a new suggestion</v-card-title>
         <v-divider></v-divider>
         <v-form v-model='suggestionValid' @submit.prevent="createSuggestion">
-          <v-text-field
-            box
-            type="text"
-            name="song"
-            v-model="suggestion.name"
-            label="Song Name"
-            autocomplete="off"
-            :rules='[required]'
-          />
-          <v-text-field
-            box
-            type="text"
-            name="artist"
-            v-model="suggestion.artist"
-            label="Artist Name"
-            autocomplete="off"
-            :rules='[required]'
-          />
+          <v-text-field box type="text" name="song" v-model="suggestion.name" label="Song Name" autocomplete="off" :rules='[required]' />
+          <v-text-field box type="text" name="artist" v-model="suggestion.artist" label="Artist Name" autocomplete="off" :rules='[required]' />
           <v-card-actions>
-            <square-button
-              flat
-              class="form-button"
-              :disabled='!suggestionValid'
-            >
+            <square-button flat class="form-button" :disabled='!suggestionValid' type='submit'>
               Create Suggestion
             </square-button>
           </v-card-actions>
@@ -96,8 +63,8 @@
 </template>
 
 <script>
-import Song from '@/components/Song.vue'
-import SquareButton from '@/components/SquareButton.vue'
+import Song from '@/components/Song.vue';
+import SquareButton from '@/components/SquareButton.vue';
 
 export default {
   name: 'MemberHome',
@@ -118,15 +85,15 @@ export default {
       this.$store.dispatch('disconnectMember', this.memberId);
     },
     createSuggestion() {
-      this.$store.dispatch('createSuggestion', this.suggestion)
-      this.closeNewSuggestion()
+      this.$store.dispatch('createSuggestion', this.suggestion);
+      this.closeNewSuggestion();
     },
     closeNewSuggestion() {
       this.newSuggestionDialog = false;
       this.suggestion = {
         name: '',
         artist: ''
-      }
+      };
     }
   },
   mounted() {
