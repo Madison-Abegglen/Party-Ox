@@ -249,6 +249,18 @@ io.on('connection', socket => {
           }
 
           socket.emit('updateQueue', { partyId, queue: party.queue })
+
+          Members.find({ partyId }).then(memberList => {
+            memberList.forEach(member => {
+              const memberSocket = members[member.id.toString()]
+              if (!memberSocket) {
+                member.remove().exec()
+                return
+              }
+
+              memberSocket.emit('updateQueue', party.queue)
+            })
+          }).catch(errorHandler)
         })
       })
       .catch(errorHandler)
