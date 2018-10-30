@@ -1,14 +1,40 @@
 {
   "name": "Party Ox",
   "short_name": "Party Ox",
+  "description": "A party song suggestion app for groups of people.",
   "icons": [
     {
-      "src": "img/icons/icon.png",
+      "src": "img/icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/favicon-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/favicon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/favicon-168x168.png",
+      "sizes": "168x168",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/favicon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "img/icons/icon.png",
+      "src": "img/icons/favicon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
