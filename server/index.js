@@ -313,7 +313,7 @@ io.on('connection', socket => {
         .catch(errorHandler)
 
       delete members[member._id.toString()]
-    } else if (user) {
+    } else if (user && user._id) {
       delete oxen[user._id.toString()]
     }
   })
