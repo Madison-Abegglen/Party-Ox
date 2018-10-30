@@ -13,6 +13,5 @@ module.exports = {
     }
   },
 
-  lintOnSave: false,
-  lintOnCommit: true
+  lintOnSave: false
 }
