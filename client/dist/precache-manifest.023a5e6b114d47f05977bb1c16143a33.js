@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/js/app.f3418a46.js"
   },
   {
-    "revision": "f77565ad0227557c1b717d180ad274e7",
+    "revision": "783c9b84ad30914edb0f6eb652965066",
     "url": "/index.html"
   },
   {
@@ -26,6 +26,10 @@ self.__precacheManifest = [
   {
     "revision": "4329c299a5a2112dc7d0652826d8bc24",
     "url": "/img/ox-circle.4329c299.svg"
+  },
+  {
+    "revision": "47e945483a49f306e88cdc639dd9dd38",
+    "url": "/icon.svg"
   },
   {
     "revision": "6a2ebb5222288e1864c1",
