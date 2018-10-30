@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/img/ox-circle.4329c299.svg"
   },
   {
-    "revision": "47e945483a49f306e88cdc639dd9dd38",
+    "revision": "8f586a2d8bfaa5fc1eb629baf158b679",
     "url": "/icon.svg"
   },
   {
