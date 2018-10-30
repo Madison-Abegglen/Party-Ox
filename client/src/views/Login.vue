@@ -21,7 +21,6 @@
               name="code"
               v-model="input.code"
               label="Enter code here"
-              autocomplete="off"
               :rules='[rules.exact(5, "code")]'
               maxlength='5'
             />
@@ -59,7 +58,6 @@
                 label="Name"
                 name='name'
                 box
-                autocomplete='off'
               />
             </transition>
             <v-text-field
@@ -69,7 +67,6 @@
               label="Email"
               name='email'
               box
-              autocomplete='off'
             />
             <v-text-field
               :type="input.showPassword ? 'text' : 'password'"
@@ -82,7 +79,6 @@
               name='password'
               box
               :loading='$store.state.loading'
-              autocomplete='off'
             />
             <base-button :disabled='!input.valid' type="submit" primary raised v-if="!signUpToggle">Login</base-button>
             <base-button :disabled='!input.valid' type="submit" primary raised v-else>Signup</base-button>
