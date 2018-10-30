@@ -214,3 +214,20 @@ div.scale-leave-to {
   max-height: 0;
 }
 </style>
+
+<style>
+input:-webkit-autofill, textarea:-webkit-autofill {
+  transition: background-color 999999s;
+  -webkit-text-fill-color: #fff;
+  text-fill-color: #fff;
+  caret-color: #fff;
+}
+
+input:autofill,
+textarea:autofill {
+  transition: background-color 999999s;
+  -webkit-text-fill-color: #fff;
+  text-fill-color: #fff;
+  caret-color: #fff;
+}
+</style>
