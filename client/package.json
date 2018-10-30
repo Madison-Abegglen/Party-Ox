@@ -36,9 +36,14 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/html-indent": "warning",
+      "vue/no-multi-spaces": "warning",
+      "vue/script-indent": "warning",
+      "no-console": "off"
     }
   },
   "postcss": {
