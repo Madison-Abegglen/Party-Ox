@@ -11,7 +11,7 @@
    viewBox="0 0 726.924 726.924"
    preserveAspectRatio="xMidYMid meet"
    id="svg30"
-   sodipodi:docname="icon.svg"
+   sodipodi:docname="icon-bg.svg"
    width="726.92401"
    height="726.92401"
    inkscape:export-filename="C:\Workspace\party-ox\client\public\img\icons\favicon-512x512.png"
@@ -26,6 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -51,8 +52,17 @@
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg30" />
+  <rect
+     style="opacity:1;fill:#0000aa"
+     id="rect42"
+     width="744.30597"
+     height="742.78564"
+     x="-8.690979"
+     y="-7.9308167"
+     ry="5.77742"
+     rx="0" />
   <g
-     transform="matrix(0.1,0,0,-0.1,-112.28766,811.759)"
+     transform="matrix(0.1,0,0,-0.1,-113.59991,811.759)"
      id="g28"
      style="fill:#66fcf1;stroke:none">
     <path
